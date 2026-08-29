@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
 from backend.utils.logger import get_logger
-from backend.api import health, upload
+from backend.api import health, upload, analysis
 
 logger = get_logger("SatQueryAI.Main")
 
@@ -24,8 +24,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title=settings.APP_NAME,
-    description="Multimodal Remote-Sensing Vision-Language Agent Backend Engine (Phase 1)",
-    version="0.1.0",
+    description="Multimodal Remote-Sensing Vision-Language Agent Backend Engine (Phase 2)",
+    version="0.2.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan,
@@ -43,13 +43,14 @@ app.add_middleware(
 # Router Registrations
 app.include_router(health.router, prefix=settings.API_PREFIX)
 app.include_router(upload.router, prefix=settings.API_PREFIX)
+app.include_router(analysis.router, prefix=settings.API_PREFIX)
 
 
 @app.get("/")
 async def root():
     return {
         "app": settings.APP_NAME,
-        "phase": "Phase 1 - Data & Image Engine",
+        "phase": "Phase 2 - Single-Image AI",
         "docs": "/docs",
         "health": f"{settings.API_PREFIX}/health"
     }

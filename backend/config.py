@@ -48,6 +48,13 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     LOG_LEVEL: str = "INFO"
 
+    # Vision-Language Model (VLM) Settings - Phase 2
+    VLM_MODEL_NAME: str = "Qwen/Qwen2-VL-2B-Instruct"
+    VLM_DEVICE: str = "auto"  # "cuda", "cpu", or "auto"
+    USE_MOCK_VLM: bool = True  # Default to True for lightweight dev & test execution
+    MAX_VLM_TOKENS: int = 256
+
+
     def ensure_directories(self) -> None:
         """Create necessary data directories if they do not exist."""
         for path in [self.DATA_DIR, self.UPLOAD_DIR, self.PROCESSED_DIR, self.RESULTS_DIR]:

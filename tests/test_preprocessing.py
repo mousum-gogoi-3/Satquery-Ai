@@ -29,3 +29,48 @@ def test_generate_preview_thumbnail(sample_geotiff_multispectral: Path, tmp_path
     )
     assert result_path.exists()
     assert result_path.stat().st_size > 0
+
+
+def test_load_raster_as_pil_image_rgb(sample_geotiff_rgb: Path):
+    from backend.models.base import load_raster_as_pil_image
+    pil_img = load_raster_as_pil_image(sample_geotiff_rgb)
+    assert pil_img.mode == "RGB"
+    assert pil_img.size == (256, 256)
+
+
+def test_load_raster_as_pil_image_multispectral(sample_geotiff_multispectral: Path):
+    from backend.models.base import load_raster_as_pil_image
+    pil_img = load_raster_as_pil_image(sample_geotiff_multispectral)
+    assert pil_img.mode == "RGB"
+    assert pil_img.size == (512, 512)
+
+
+def test_load_raster_as_pil_image_sar(sample_geotiff_sar: Path):
+    from backend.models.base import load_raster_as_pil_image
+    pil_img = load_raster_as_pil_image(sample_geotiff_sar)
+    assert pil_img.mode == "RGB"
+    assert pil_img.size == (128, 128)
+
+
+def test_load_raster_as_pil_image_png(sample_png: Path):
+    from backend.models.base import load_raster_as_pil_image
+    pil_img = load_raster_as_pil_image(sample_png)
+    assert pil_img.mode == "RGB"
+    assert pil_img.size == (200, 200)
+
+
+def test_load_raster_as_pil_image_nonexistent(tmp_path: Path):
+    import pytest
+    from backend.models.base import load_raster_as_pil_image
+    fake_path = tmp_path / "non_existent.tif"
+    with pytest.raises(FileNotFoundError):
+        load_raster_as_pil_image(fake_path)
+
+
+def test_load_raster_as_pil_image_resizing(sample_geotiff_multispectral: Path):
+    from backend.models.base import load_raster_as_pil_image
+    # 512x512 GeoTIFF should be scaled down when max_dim=128
+    pil_img = load_raster_as_pil_image(sample_geotiff_multispectral, max_dim=128)
+    assert pil_img.mode == "RGB"
+    assert max(pil_img.size) == 128
+
