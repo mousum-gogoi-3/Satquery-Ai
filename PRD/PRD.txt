@@ -1,0 +1,943 @@
+SatQuery AI — Product Requirements Document
+
+Project: SatQuery AI
+SIH Problem Statement: 26167
+Version: 1.0
+Type: Multimodal Remote-Sensing Vision-Language Agent
+Primary Goal: Enable users to analyze satellite imagery using natural-language questions and receive answers backed by visual/geospatial evidence.
+
+1. Product Overview
+1.1 Product Name
+
+SatQuery AI
+
+1.2 One-line description
+
+SatQuery AI is an agentic multimodal AI system that allows users to ask natural-language questions about satellite imagery and receive explainable answers supported by visual, temporal, optical, SAR, and geospatial evidence.
+
+2. Problem Statement
+
+Traditional satellite-image analysis requires users to understand:
+
+GIS software
+Remote sensing
+Image bands
+Raster processing
+Change detection
+SAR analysis
+Machine-learning tools
+
+This creates a barrier for non-expert users.
+
+For example, a user shouldn't need to manually operate several tools to answer:
+
+"What changed in this region between 2022 and 2026?"
+
+or:
+
+"Where are the newly constructed buildings?"
+
+or:
+
+"Does the SAR imagery support the conclusion that this area is urban?"
+
+SatQuery AI should convert these questions into appropriate analysis workflows automatically.
+
+3. Product Vision
+
+SatQuery AI should eventually work like:
+
+User
+ │
+ │ Natural-language question
+ ▼
+SatQuery AI
+ │
+ ▼
+Agent understands intent
+ │
+ ├── Image analysis
+ ├── VQA
+ ├── Grounding
+ ├── Change detection
+ ├── Optical analysis
+ ├── SAR analysis
+ ├── Geospatial analysis
+ └── Evidence retrieval
+ │
+ ▼
+Evidence fusion
+ │
+ ▼
+Natural-language answer
+ │
+ ├── Visual evidence
+ ├── Maps
+ ├── Bounding boxes
+ ├── Change regions
+ └── Confidence
+4. Target Users
+Primary users
+Disaster-management teams
+Government agencies
+Remote-sensing researchers
+GIS analysts
+Environmental researchers
+Urban planners
+Agriculture researchers
+Students
+Defense/security researchers where appropriate and lawful
+SIH judges/demo users
+Secondary users
+
+People who have satellite imagery but lack advanced remote-sensing expertise.
+
+5. Core Product Requirements
+
+SatQuery AI must support:
+
+R1 — Satellite image ingestion
+
+Users must be able to upload satellite imagery.
+
+Supported initial formats:
+
+GeoTIFF
+TIFF
+PNG
+JPEG
+
+Later:
+
+JP2
+COG
+other geospatial raster formats
+6. Phase 1 — Data & Image Engine
+Objective
+
+Create a reliable system for reading, validating and preparing satellite imagery.
+
+Components
+Upload Manager
+      ↓
+File Validator
+      ↓
+Raster Reader
+      ↓
+Metadata Extractor
+      ↓
+Band Manager
+      ↓
+Preprocessor
+6.1 File validation
+
+Check:
+
+file type
+file size
+corrupted files
+number of bands
+dimensions
+supported data type
+
+Example:
+
+{
+  "valid": true,
+  "format": "GeoTIFF",
+  "width": 10980,
+  "height": 10980,
+  "bands": 4
+}
+6.2 Metadata extraction
+
+Extract:
+
+width
+height
+band count
+CRS
+transform
+resolution
+datatype
+bounds
+nodata value
+6.3 Band management
+
+System should identify available bands.
+
+Example:
+
+Blue
+Green
+Red
+NIR
+SWIR
+VV
+VH
+6.4 Preprocessing
+
+Support:
+
+resizing
+normalization
+tiling
+cloud/no-data handling where appropriate
+band selection
+image alignment
+6.5 Tiling
+
+Large satellite images should be divided into manageable tiles.
+
+Large satellite image
+
+┌────┬────┬────┐
+│ T1 │ T2 │ T3 │
+├────┼────┼────┤
+│ T4 │ T5 │ T6 │
+├────┼────┼────┤
+│ T7 │ T8 │ T9 │
+└────┴────┴────┘
+
+This allows models to process high-resolution imagery without exceeding memory limits.
+
+7. Phase 2 — Single Image AI
+Objective
+
+Allow SatQuery to understand one satellite image.
+
+Architecture:
+
+Image
+ +
+Question
+ ↓
+Remote-Sensing VLM
+ ↓
+Answer
+7.1 Visual Question Answering
+
+Example:
+
+Input
+
+Image: satellite.tif
+
+Question:
+"What type of land cover is visible?"
+
+Output
+
+"The image contains agricultural,
+built-up and vegetated areas."
+7.2 Image captioning
+
+Input:
+
+"Describe this image."
+
+Output:
+
+"The image shows agricultural fields,
+roads and scattered buildings."
+7.3 Semantic understanding
+
+The model should identify concepts such as:
+
+water
+vegetation
+buildings
+roads
+agriculture
+urban areas
+bare land
+8. Phase 3 — Grounding & Visual Evidence
+Objective
+
+Answers should be connected to specific image regions.
+
+Instead of:
+
+"There are several buildings."
+
+SatQuery should be able to show:
+
+Building
+ └── Bounding box
+8.1 Object detection
+
+Detect:
+
+buildings
+roads
+vehicles
+ships
+aircraft
+agricultural structures
+
+depending on dataset/model capability.
+
+8.2 Segmentation
+
+Produce pixel-level masks.
+
+Image
+ ↓
+Segmentation
+ ↓
+Building mask
+8.3 Text grounding
+
+User:
+
+"Where are the buildings?"
+
+System:
+
+Question
+ ↓
+Grounding model
+ ↓
+Regions
+ ↓
+Highlighted image
+8.4 Evidence linking
+
+Every important answer should ideally have:
+
+Answer
+ +
+Evidence region
+ +
+Model/tool
+ +
+Confidence
+9. Phase 4 — Bi-Temporal Change Analysis
+Objective
+
+Compare satellite imagery from different dates.
+
+Input:
+
+Image A → 2022
+Image B → 2026
+9.1 Image registration
+
+Align images spatially.
+
+Image A
+   +
+Image B
+   ↓
+Registration
+   ↓
+Aligned pair
+9.2 Change detection
+
+Identify changed pixels/regions.
+
+Examples:
+
+Forest → Built-up
+Water → Land
+Bare land → Construction
+Building → Demolished area
+9.3 Change map
+
+Produce a visual representation:
+
+Before
+After
+Change
+9.4 Change VQA
+
+User:
+
+"What changed?"
+
+System:
+
+"New built-up areas appeared in the northern portion of the image."
+
+9.5 Quantification
+
+Where reliable, calculate:
+
+Changed area
+Percentage change
+Number of detected objects
+Land-cover transition
+10. Phase 5 — Optical + SAR Multimodal Analysis
+Objective
+
+Combine information from different satellite modalities.
+
+10.1 Optical pipeline
+Optical image
+ ↓
+Optical model
+ ↓
+Features/evidence
+10.2 SAR pipeline
+SAR image
+ ↓
+SAR preprocessing
+ ↓
+SAR model
+ ↓
+Features/evidence
+10.3 Multimodal fusion
+Optical features
+       +
+SAR features
+       ↓
+Fusion module
+       ↓
+Joint representation
+10.4 Example
+
+User:
+
+"Determine whether this region is built-up using optical and SAR evidence."
+
+System:
+
+Optical analysis
+       ↓
+Built-up probability
+
+SAR analysis
+       ↓
+Built-up probability
+
+       ↓
+
+Evidence fusion
+
+       ↓
+
+Final answer
+11. Phase 6 — Agentic AI
+
+This is the brain/orchestrator of SatQuery.
+
+Important:
+
+The agent is not necessarily the model that understands pixels.
+
+It decides which specialist tools/models should be used.
+
+11.1 Agent architecture
+                   USER
+                     │
+                     ▼
+              Query Analyzer
+                     │
+                     ▼
+                  Planner
+                     │
+                     ▼
+                   Router
+                     │
+       ┌─────────────┼─────────────┐
+       ▼             ▼             ▼
+      VQA          Change         SAR
+       │             │             │
+       └─────────────┼─────────────┘
+                     ▼
+                  Verifier
+                     │
+                     ▼
+              Evidence Fusion
+                     │
+                     ▼
+                Answer Engine
+11.2 Agent tools
+
+Initial tool registry:
+
+get_metadata()
+preprocess_image()
+run_vqa()
+generate_caption()
+detect_objects()
+segment_region()
+register_images()
+detect_change()
+analyze_optical()
+analyze_sar()
+fuse_modalities()
+calculate_area()
+11.3 Query routing
+Query
+
+"Describe this image."
+
+Agent:
+
+→ caption()
+Query
+
+"What changed?"
+
+Agent:
+
+→ register_images()
+→ detect_change()
+→ change_vqa()
+Query
+
+"Where are the buildings?"
+
+Agent:
+
+→ detect_objects()
+→ grounding()
+Query
+
+"Use optical and SAR."
+
+Agent:
+
+→ analyze_optical()
+→ analyze_sar()
+→ fuse_modalities()
+11.4 Agent safety
+
+The agent must not have unrestricted access to the operating system.
+
+It should only be allowed to call registered tools.
+
+For example:
+
+ALLOWED_TOOLS = {
+    "run_vqa",
+    "detect_change",
+    "analyze_sar",
+    "analyze_optical"
+}
+
+The agent outputs a structured plan rather than arbitrary executable code.
+
+Example:
+
+{
+  "task": "change_analysis",
+  "steps": [
+    "register_images",
+    "detect_change",
+    "generate_change_summary"
+  ]
+}
+
+The backend validates this plan before execution.
+
+12. Phase 7 — Model Adaptation & Evaluation
+Objective
+
+Improve generic models for remote-sensing tasks.
+
+12.1 Pretrained models first
+
+Don't train a giant model from scratch.
+
+Start:
+
+Pretrained model
+       ↓
+Test on satellite images
+       ↓
+Identify weaknesses
+       ↓
+Adapt/fine-tune
+12.2 Fine-tuning
+
+Potential approach:
+
+Base model
+ +
+Remote-sensing dataset
+ +
+LoRA/PEFT
+ ↓
+Adapted model
+12.3 Dataset layer
+
+Potential datasets include:
+
+BigEarthNet
+RSVQA
+VRSBench
+CDVQA
+
+Dataset selection should depend on the exact task and license.
+
+12.4 Evaluation
+
+Create separate benchmarks.
+
+VQA
+Question
+ ↓
+Model answer
+ ↓
+Compare with reference
+Change detection
+
+Metrics such as:
+
+IoU
+F1
+Precision
+Recall
+Grounding
+
+Metrics such as:
+
+IoU
+mAP
+Agent
+
+Measure:
+
+Correct tool selection
+Correct workflow
+Execution success
+Answer correctness
+13. Phase 8 — Final Application
+Frontend
+
+The user interface should provide:
+
+Upload image
+Upload second image
+Select modality
+Ask question
+View answer
+View evidence
+View change map
+View metadata
+Main interface
+┌──────────────────────────────────────────────┐
+│                 SATQUERY AI                  │
+├──────────────────────┬───────────────────────┤
+│                      │                       │
+│   SATELLITE IMAGE    │    ASK SATQUERY      │
+│                      │                       │
+│      [ MAP ]         │ What changed?        │
+│                      │                       │
+│                      │    [ ANALYZE ]       │
+├──────────────────────┴───────────────────────┤
+│ ANSWER                                       │
+│                                             │
+│ Built-up area increased in the north.       │
+│                                             │
+├─────────────────────────────────────────────┤
+│ EVIDENCE                                    │
+│                                             │
+│ [Original] [Change Map] [Grounding]         │
+│                                             │
+├─────────────────────────────────────────────┤
+│ ANALYSIS TRACE                              │
+│                                             │
+│ ✓ Image registration                        │
+│ ✓ Change detection                          │
+│ ✓ Evidence verification                     │
+└─────────────────────────────────────────────┘
+14. Backend Architecture
+
+I recommend:
+
+SatQueryAI/
+│
+├── backend/
+│   ├── api/
+│   │   ├── upload.py
+│   │   ├── analysis.py
+│   │   └── health.py
+│   │
+│   ├── agent/
+│   │   ├── agent.py
+│   │   ├── planner.py
+│   │   ├── router.py
+│   │   ├── tools.py
+│   │   └── schemas.py
+│   │
+│   ├── models/
+│   │   ├── vqa.py
+│   │   ├── caption.py
+│   │   ├── grounding.py
+│   │   ├── change_detection.py
+│   │   ├── optical.py
+│   │   └── sar.py
+│   │
+│   ├── remote_sensing/
+│   │   ├── raster.py
+│   │   ├── bands.py
+│   │   ├── preprocessing.py
+│   │   ├── registration.py
+│   │   └── tiling.py
+│   │
+│   ├── evidence/
+│   │   ├── evidence.py
+│   │   └── confidence.py
+│   │
+│   └── main.py
+│
+├── data/
+│   ├── uploads/
+│   ├── processed/
+│   └── results/
+│
+├── models/
+│
+├── tests/
+│
+├── frontend/
+│
+├── requirements.txt
+└── README.md
+
+This architecture keeps the agent separate from the specialist models.
+
+15. Recommended Technology Stack
+Backend
+Python
+FastAPI
+PyTorch
+NumPy
+OpenCV
+Rasterio
+GDAL where necessary
+Pydantic
+AI
+PyTorch
+Hugging Face ecosystem
+Remote-sensing VLMs
+LoRA / PEFT
+Agent
+
+Initially:
+
+Python
+Structured tool calling
+Pydantic schemas
+
+You don't need a complicated agent framework at the beginning.
+
+Frontend
+
+Since you already work with Flutter, you can use:
+
+Flutter
+
+Frontend:
+
+Flutter
+     ↓
+FastAPI
+     ↓
+SatQuery backend
+16. End-to-End Example
+
+Suppose the user uploads:
+
+2022.tif
+2026.tif
+
+and asks:
+
+"How much urbanization occurred between these two images, and show me where it happened."
+
+SatQuery should do:
+
+USER
+ │
+ ▼
+Agent
+ │
+ ├── Understand question
+ │
+ ├── Detect two dates
+ │
+ ├── Identify change-analysis task
+ │
+ ▼
+Image Engine
+ │
+ ├── Read GeoTIFF
+ ├── Extract CRS
+ ├── Check resolution
+ └── Register images
+ │
+ ▼
+Change Detection
+ │
+ ├── Detect changed pixels
+ └── Generate change map
+ │
+ ▼
+Land-cover Analysis
+ │
+ └── Identify urban/built-up changes
+ │
+ ▼
+Quantification
+ │
+ └── Calculate changed area
+ │
+ ▼
+Evidence
+ │
+ ├── Change map
+ ├── Highlighted region
+ └── Numerical measurement
+ │
+ ▼
+Answer Generator
+ │
+ ▼
+USER
+
+Final response could be:
+
+Urbanization increased between 2022 and 2026, with approximately X hectares of newly detected built-up area. The primary changes occurred in the northern and eastern portions of the scene.
+
+And the UI shows the corresponding highlighted regions.
+
+17. What makes SatQuery different?
+
+A simple system:
+
+Image → VLM → Answer
+
+is not enough for your goal.
+
+SatQuery should become:
+
+Image(s)
+   ↓
+Understand question
+   ↓
+Plan analysis
+   ↓
+Select specialist models
+   ↓
+Perform geospatial analysis
+   ↓
+Cross-check evidence
+   ↓
+Generate visual evidence
+   ↓
+Explain answer
+
+The key concept is:
+
+Natural language → autonomous multimodal remote-sensing workflow → evidence-backed answer.
+
+18. MVP vs Final SIH Version
+
+Don't try to build all of this immediately.
+
+MVP
+
+Your first working version should only contain:
+
+✅ Upload GeoTIFF
+✅ Read metadata
+✅ Display image
+✅ Ask question
+✅ VLM answers question
+
+Then:
+
+✅ Two images
+✅ Change detection
+
+Then:
+
+✅ Grounding
+✅ Optical + SAR
+
+Then:
+
+✅ Agent
+
+Then:
+
+✅ Evidence
+✅ Evaluation
+✅ Final UI
+19. Development order
+
+This is the order I strongly recommend:
+
+PHASE 1
+Data & Image Engine
+        ↓
+PHASE 2
+Single Image VLM
+        ↓
+PHASE 3
+Grounding
+        ↓
+PHASE 4
+Change Detection
+        ↓
+PHASE 5
+Optical + SAR
+        ↓
+PHASE 6
+Agent
+        ↓
+PHASE 7
+Adaptation + Evaluation
+        ↓
+PHASE 8
+Final Application
+
+Do not start with Phase 6 (the agent).
+
+The agent is useless if there are no reliable tools/models for it to call.
+
+20. Your first implementation task
+
+Since you want to actually build this, let's make the next step concrete.
+
+Today, create:
+D:\SatQueryAI
+
+Then:
+
+D:\SatQueryAI
+├── backend
+├── data
+├── models
+├── tests
+└── frontend
+
+Then create a Python virtual environment and install:
+
+numpy
+rasterio
+opencv-python
+pillow
+fastapi
+uvicorn
+python-multipart
+
+Then our first actual program will be:
+
+satellite.tif
+      ↓
+SatQuery
+      ↓
+Read image
+      ↓
+Print:
+  Width
+  Height
+  Bands
+  CRS
+  Resolution
+  Metadata

@@ -1,0 +1,43 @@
+                    ┌───────────────┐
+                    │     USER      │
+                    └───────┬───────┘
+                            │
+                    Image + Question
+                            │
+                            ▼
+                ┌─────────────────────┐
+                │   INPUT VALIDATOR   │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │  AGENTIC CONTROLLER │
+                └──────────┬──────────┘
+                           │
+             ┌─────────────┼──────────────┐
+             │             │              │
+             ▼             ▼              ▼
+          Single       Bi-temporal    Optical + SAR
+          Image          Analysis       Analysis
+             │             │              │
+             ▼             ▼              ▼
+            VQA       Change Model    Fusion Model
+             │             │              │
+             ▼             ▼              ▼
+       Captioning/      Change VQA      Joint
+       Grounding                       Information
+             │             │              │
+             └─────────────┼──────────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │  RESULT FUSION  │
+                  └────────┬────────┘
+                           │
+              ┌────────────┼────────────┐
+              ▼            ▼            ▼
+           Answer       Evidence     Confidence
+              │            │            │
+              └────────────┼────────────┘
+                           ▼
+                     USER INTERFACE
