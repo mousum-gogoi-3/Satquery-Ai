@@ -54,6 +54,19 @@ class Settings(BaseSettings):
     USE_MOCK_VLM: bool = True  # Default to True for lightweight dev & test execution
     MAX_VLM_TOKENS: int = 256
 
+    # Spatial Grounding & Evidence Settings - Phase 3
+    GROUNDING_MODEL_NAME: str = "google/owlv2-base-patch16-ensemble"
+    GROUNDING_CONF_THRESHOLD: float = 0.005
+    GROUNDING_DEVICE: str = "cuda"  # "cuda", "cpu", or "auto"
+    USE_MOCK_GROUNDING: bool = False  # Production API uses real OWLv2 on CUDA by default
+    GROUNDING_TILE_SIZE: int = 256
+    GROUNDING_TILE_OVERLAP: float = 0.25
+    GROUNDING_NMS_IOU_THRESHOLD: float = 0.35
+    GROUNDING_MAX_EVIDENCE_REGIONS: int = 3
+
+
+
+
 
     def ensure_directories(self) -> None:
         """Create necessary data directories if they do not exist."""

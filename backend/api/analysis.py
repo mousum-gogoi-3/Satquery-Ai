@@ -1,12 +1,19 @@
 import time
 from pathlib import Path
 from fastapi import APIRouter, HTTPException, status
+import numpy as np
 
 from backend.config import settings
 from backend.utils.logger import get_logger
-from backend.api.schemas import VQARequest, VQAResponse, CaptionRequest, CaptionResponse
+from backend.api.schemas import (
+    VQARequest, VQAResponse,
+    CaptionRequest, CaptionResponse,
+    GroundedAnalysisRequest, GroundedAnalysisResponse
+)
 from backend.models.vqa import VQAEngine
 from backend.models.caption import CaptionEngine
+from backend.models.grounding import GroundingEngine
+from backend.utils.rendering import render_visual_evidence
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/analysis", tags=["Single-Image AI Analysis"])
@@ -14,6 +21,7 @@ router = APIRouter(prefix="/analysis", tags=["Single-Image AI Analysis"])
 # Lazy engine singletons
 vqa_engine = VQAEngine()
 caption_engine = CaptionEngine()
+grounding_engine = GroundingEngine()
 
 
 def _resolve_uploaded_file(file_id: str) -> Path:
@@ -104,4 +112,79 @@ async def generate_scene_caption(request: CaptionRequest):
         detected_concepts=concepts,
         processing_time_sec=round(elapsed, 4),
         model_name=caption_engine.model_name,
+    )
+
+
+@router.post("/grounded", response_model=GroundedAnalysisResponse, status_code=status.HTTP_200_OK)
+async def perform_grounded_analysis(request: GroundedAnalysisRequest):
+    """
+    Performs spatial grounding analysis on a satellite scene, returning both semantic text answers
+    and visual evidence bounding boxes rendered on an output visualization image.
+    """
+    if not request.query or not request.query.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Query text cannot be empty"
+        )
+
+    file_path = _resolve_uploaded_file(request.file_id)
+
+    start_time = time.perf_counter()
+    try:
+        # 1. Semantic reasoning via VQA Engine
+        answer, vqa_conf = vqa_engine.answer_question(file_path, request.query)
+
+        # 2. Spatial Grounding evidence detection via Grounding Engine
+        evidence_regions, img_dims, model_info = grounding_engine.detect_evidence(
+            file_path=file_path,
+            query=request.query,
+            confidence_threshold=request.confidence_threshold
+        )
+
+        # Combine model metadata
+        model_info["vlm_model"] = vqa_engine.model_name
+
+        # 3. Render visual evidence visualization image (preserves source file completely)
+        rendered_image_path = render_visual_evidence(
+            source_image=file_path,
+            regions=evidence_regions,
+            filename_prefix=f"evidence_{request.file_id}"
+        )
+
+        # Relative path for API response
+        try:
+            rel_path = str(rendered_image_path.relative_to(settings.BASE_DIR)).replace("\\", "/")
+        except ValueError:
+            rel_path = str(rendered_image_path)
+
+        overall_conf = round(
+            float(np.mean([r.confidence for r in evidence_regions])) if evidence_regions else vqa_conf,
+            4
+        )
+
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Raster file with ID '{request.file_id}' not found"
+        )
+    except Exception as e:
+        logger.error(f"Grounded analysis failed for file_id={request.file_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"An error occurred during spatial grounding analysis: {str(e)}"
+        )
+
+    elapsed = time.perf_counter() - start_time
+    logger.info(f"Completed Grounded Analysis for file_id={request.file_id} in {elapsed:.4f}s")
+
+    return GroundedAnalysisResponse(
+        file_id=request.file_id,
+        query=request.query,
+        answer=answer,
+        evidence_regions=evidence_regions,
+        overall_confidence=overall_conf,
+        evidence_image_path=rel_path,
+        source_image_dims=img_dims,
+        model_info=model_info,
+        processing_time_sec=round(elapsed, 4)
     )

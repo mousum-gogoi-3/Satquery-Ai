@@ -172,3 +172,78 @@ async def test_valid_upload_and_preview_behavior(sample_geotiff_rgb: Path, tmp_d
         assert preview_res.headers["content-type"] == "image/png"
         assert len(preview_res.content) > 0
 
+
+@pytest.mark.asyncio
+async def test_grounded_analysis_endpoint_valid(sample_geotiff_rgb: Path, tmp_data_dir):
+    """Tests POST /api/v1/analysis/grounded with a valid uploaded raster file_id."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://testserver") as client:
+        with open(sample_geotiff_rgb, "rb") as f:
+            upload_res = await client.post(
+                "/api/v1/raster/upload",
+                files={"file": ("grounding_sample.tif", f, "image/tiff")}
+            )
+        assert upload_res.status_code == 201
+        file_id = upload_res.json()["file_id"]
+
+        ground_res = await client.post(
+            "/api/v1/analysis/grounded",
+            json={
+                "file_id": file_id,
+                "query": "Where are the buildings and water bodies?"
+            }
+        )
+        assert ground_res.status_code == 200
+        data = ground_res.json()
+        assert data["file_id"] == file_id
+        assert data["query"] == "Where are the buildings and water bodies?"
+        assert isinstance(data["answer"], str)
+        assert isinstance(data["evidence_regions"], list)
+        assert len(data["evidence_regions"]) >= 0
+        assert data["overall_confidence"] >= 0.0
+        assert data["evidence_image_path"] is not None
+        assert data["source_image_dims"]["width"] == 256
+        assert data["source_image_dims"]["height"] == 256
+        assert data["processing_time_sec"] >= 0.0
+
+
+@pytest.mark.asyncio
+async def test_grounded_analysis_endpoint_missing_file_id(tmp_data_dir):
+    """Tests POST /api/v1/analysis/grounded with non-existent file_id returns HTTP 404."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://testserver") as client:
+        res = await client.post(
+            "/api/v1/analysis/grounded",
+            json={"file_id": "non_existent_id_99999", "query": "Where are the buildings?"}
+        )
+        assert res.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_grounded_analysis_endpoint_empty_query(sample_geotiff_rgb: Path, tmp_data_dir):
+    """Tests POST /api/v1/analysis/grounded with empty query returns HTTP 400."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://testserver") as client:
+        with open(sample_geotiff_rgb, "rb") as f:
+            upload_res = await client.post(
+                "/api/v1/raster/upload",
+                files={"file": ("empty_q_sample.tif", f, "image/tiff")}
+            )
+        assert upload_res.status_code == 201
+        file_id = upload_res.json()["file_id"]
+
+        res = await client.post(
+            "/api/v1/analysis/grounded",
+            json={"file_id": file_id, "query": "   "}
+        )
+        assert res.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_grounded_analysis_endpoint_path_traversal_file_id(tmp_data_dir):
+    """Tests POST /api/v1/analysis/grounded with invalid file_id returns HTTP 400."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://testserver") as client:
+        res = await client.post(
+            "/api/v1/analysis/grounded",
+            json={"file_id": "../traversal_id", "query": "Where is the vegetation?"}
+        )
+        assert res.status_code == 400
+
+
