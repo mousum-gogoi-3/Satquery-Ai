@@ -64,10 +64,22 @@ class Settings(BaseSettings):
     GROUNDING_NMS_IOU_THRESHOLD: float = 0.35
     GROUNDING_MAX_EVIDENCE_REGIONS: int = 3
 
-
-
-
-
+    # Bi-Temporal Change Detection Settings - Phase 4
+    TEMPORAL_CHANGE_THRESHOLD: float = 0.22
+    MIN_CHANGE_REGION_AREA: int = 40
+    MAX_CHANGE_REGION_AREA_PCT: float = 0.40
+    NDVI_CHANGE_THRESHOLD: float = 0.18
+    NDWI_CHANGE_THRESHOLD: float = 0.15
+    NDBI_CHANGE_THRESHOLD: float = 0.15
+    TEMPORAL_MAX_CHANGE_REGIONS: int = 10
+    TEMPORAL_CONFIDENCE_THRESHOLD: float = 0.35
+    TEMPORAL_ADAPTIVE_THRESHOLD_SIGMA: float = 3.0
+    TEMPORAL_MIN_MAGNITUDE_FLOOR: float = 0.04
+    TEMPORAL_CHANGE_THRESHOLD_MIN: float = 0.06
+    TEMPORAL_CHANGE_THRESHOLD_MAX: float = 0.35
+    REGISTRATION_FEATURE_MAX_KEYPOINTS: int = 1000
+    REGISTRATION_MIN_MATCHES: int = 8
+    REGISTRATION_MIN_OVERLAP_PCT: float = 0.05
     def ensure_directories(self) -> None:
         """Create necessary data directories if they do not exist."""
         for path in [self.DATA_DIR, self.UPLOAD_DIR, self.PROCESSED_DIR, self.RESULTS_DIR]:

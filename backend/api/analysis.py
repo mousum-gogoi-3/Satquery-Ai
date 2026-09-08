@@ -8,20 +8,23 @@ from backend.utils.logger import get_logger
 from backend.api.schemas import (
     VQARequest, VQAResponse,
     CaptionRequest, CaptionResponse,
-    GroundedAnalysisRequest, GroundedAnalysisResponse
+    GroundedAnalysisRequest, GroundedAnalysisResponse,
+    TemporalAnalysisRequest, TemporalAnalysisResponse
 )
 from backend.models.vqa import VQAEngine
 from backend.models.caption import CaptionEngine
 from backend.models.grounding import GroundingEngine
+from backend.models.temporal_engine import BiTemporalAnalysisEngine
 from backend.utils.rendering import render_visual_evidence
 
 logger = get_logger(__name__)
-router = APIRouter(prefix="/analysis", tags=["Single-Image AI Analysis"])
+router = APIRouter(prefix="/analysis", tags=["Remote-Sensing AI Analysis"])
 
 # Lazy engine singletons
 vqa_engine = VQAEngine()
 caption_engine = CaptionEngine()
 grounding_engine = GroundingEngine()
+temporal_engine = BiTemporalAnalysisEngine()
 
 
 def _resolve_uploaded_file(file_id: str) -> Path:
@@ -188,3 +191,53 @@ async def perform_grounded_analysis(request: GroundedAnalysisRequest):
         model_info=model_info,
         processing_time_sec=round(elapsed, 4)
     )
+
+
+@router.post("/change", response_model=TemporalAnalysisResponse, status_code=status.HTTP_200_OK)
+async def perform_temporal_change_analysis(request: TemporalAnalysisRequest):
+    """
+    Performs bi-temporal change detection and spatial grounding analysis between two satellite images.
+    Accepts:
+      - file_id_before: Earlier satellite observation
+      - file_id_after: Later satellite observation
+      - query: Natural-language query describing desired change analysis
+    Returns:
+      - Full spatial registration diagnostics
+      - Detected change regions with bounding boxes, spectral deltas, and confidence
+      - Quantified change statistics and dominant change category
+      - Multi-panel visual evidence and heatmap image paths
+      - Natural-language explanation
+    """
+    if not request.query or not request.query.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Query text cannot be empty"
+        )
+
+    file_path_before = _resolve_uploaded_file(request.file_id_before)
+    file_path_after = _resolve_uploaded_file(request.file_id_after)
+
+    try:
+        response = temporal_engine.analyze_change(
+            before_path=file_path_before,
+            after_path=file_path_after,
+            file_id_before=request.file_id_before,
+            file_id_after=request.file_id_after,
+            query=request.query,
+            confidence_threshold=request.confidence_threshold,
+            target_change_types=request.target_change_types,
+            debug_mode=request.debug_mode
+        )
+        return response
+    except FileNotFoundError as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
+    except Exception as e:
+        logger.error(f"Temporal change analysis failed for before={request.file_id_before}, after={request.file_id_after}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"An error occurred during bi-temporal change analysis: {str(e)}"
+        )
+
