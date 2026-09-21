@@ -78,11 +78,24 @@ class BandManager:
             bands_info.append(BandInfo(band_index=2, name="Green", band_type=BandType.GREEN, wavelength_nm=560.0))
             bands_info.append(BandInfo(band_index=3, name="Blue", band_type=BandType.BLUE, wavelength_nm=490.0))
         elif band_count == 4:
-            # Standard RGB + NIR (e.g. PlanetScope, Sentinel-2 sub-pack)
-            bands_info.append(BandInfo(band_index=1, name="Red", band_type=BandType.RED, wavelength_nm=665.0))
-            bands_info.append(BandInfo(band_index=2, name="Green", band_type=BandType.GREEN, wavelength_nm=560.0))
-            bands_info.append(BandInfo(band_index=3, name="Blue", band_type=BandType.BLUE, wavelength_nm=490.0))
-            bands_info.append(BandInfo(band_index=4, name="NIR", band_type=BandType.NIR, wavelength_nm=842.0))
+            # Check if this is an RGBA visual image (PNG, JPEG, visual TIFF with Alpha)
+            # or a genuine 4-band satellite product with NIR (PlanetScope, Sentinel-2 sub-pack)
+            is_rgba = (
+                metadata.datatype in ("RGBA", "rgba") or
+                metadata.driver in ("PNG", "JPEG", "WEBP") or
+                (not metadata.is_geospatial and metadata.driver in ("IMAGE", "TIFF", "GTiff") and metadata.band_count == 4)
+            )
+
+            if is_rgba:
+                bands_info.append(BandInfo(band_index=1, name="Red", band_type=BandType.RED, wavelength_nm=665.0))
+                bands_info.append(BandInfo(band_index=2, name="Green", band_type=BandType.GREEN, wavelength_nm=560.0))
+                bands_info.append(BandInfo(band_index=3, name="Blue", band_type=BandType.BLUE, wavelength_nm=490.0))
+                bands_info.append(BandInfo(band_index=4, name="Alpha", band_type=BandType.ALPHA, description="Transparency / Alpha Mask"))
+            else:
+                bands_info.append(BandInfo(band_index=1, name="Red", band_type=BandType.RED, wavelength_nm=665.0))
+                bands_info.append(BandInfo(band_index=2, name="Green", band_type=BandType.GREEN, wavelength_nm=560.0))
+                bands_info.append(BandInfo(band_index=3, name="Blue", band_type=BandType.BLUE, wavelength_nm=490.0))
+                bands_info.append(BandInfo(band_index=4, name="NIR", band_type=BandType.NIR, wavelength_nm=842.0))
         else:
             # Generic multi-spectral band assignment
             for i in range(1, band_count + 1):
@@ -96,6 +109,33 @@ class BandManager:
                 )
 
         return bands_info
+
+    @classmethod
+    def has_physical_nir(cls, metadata: RasterMetadata) -> bool:
+        """Determines if the raster contains an authentic physical Near-Infrared (NIR) band."""
+        configs = cls.infer_band_configuration(metadata)
+        return any(b.band_type == BandType.NIR for b in configs)
+
+    @classmethod
+    def get_imagery_type(cls, metadata: RasterMetadata) -> str:
+        """
+        Classifies imagery into standard categories:
+        'RGB', 'RGBA', 'GRAYSCALE', 'SAR', or 'MULTISPECTRAL'.
+        """
+        b_count = metadata.band_count
+        if b_count == 1:
+            return "GRAYSCALE"
+        elif b_count == 2:
+            return "SAR"
+        elif b_count == 3:
+            return "RGB"
+        elif b_count == 4:
+            if cls.has_physical_nir(metadata):
+                return "MULTISPECTRAL"
+            return "RGBA"
+        elif b_count >= 5:
+            return "MULTISPECTRAL"
+        return "RGB"
 
     @staticmethod
     def create_rgb_composite(

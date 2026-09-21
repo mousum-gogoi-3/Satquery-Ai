@@ -141,7 +141,9 @@ async def perform_grounded_analysis(request: GroundedAnalysisRequest):
         evidence_regions, img_dims, model_info = grounding_engine.detect_evidence(
             file_path=file_path,
             query=request.query,
-            confidence_threshold=request.confidence_threshold
+            confidence_threshold=request.confidence_threshold,
+            max_regions=request.max_regions,
+            debug_mode=request.debug_mode
         )
 
         # Combine model metadata

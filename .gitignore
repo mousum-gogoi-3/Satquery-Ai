@@ -49,5 +49,6 @@ htmlcov/
 .venv_old/
 
 # Local AI model weights and Hugging Face cache
-models/
+/models/
+!backend/models/
 

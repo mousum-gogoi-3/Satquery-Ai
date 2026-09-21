@@ -102,6 +102,7 @@ class EvidenceRegion(BaseModel):
     final_score: Optional[float] = Field(default=None, description="Final candidate fusion score")
     source_tile: Optional[str] = Field(default=None, description="Source tile origin or detection scale")
     merged_detection_count: Optional[int] = Field(default=1, description="Number of candidate detections merged into this region")
+    coord_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Detailed coordinate transformation and debug metadata")
 
 
 class ImageDimensions(BaseModel):
@@ -113,6 +114,8 @@ class GroundedAnalysisRequest(BaseModel):
     file_id: str
     query: str = Field(..., min_length=1, description="Target query or concept to ground visually (e.g. 'Where are the buildings?').")
     confidence_threshold: Optional[float] = Field(default=None, ge=0.0, le=1.0, description="Detection confidence cut-off threshold.")
+    max_regions: Optional[int] = Field(default=None, ge=1, le=500, description="Maximum number of evidence regions to return.")
+    debug_mode: bool = Field(default=False, description="Enable debug diagnostics and candidate inspection.")
 
 
 class GroundedAnalysisResponse(BaseModel):
@@ -123,7 +126,7 @@ class GroundedAnalysisResponse(BaseModel):
     overall_confidence: float = Field(..., ge=0.0, le=1.0)
     evidence_image_path: Optional[str] = Field(default=None, description="Relative path or URI to the rendered visual evidence image")
     source_image_dims: ImageDimensions
-    model_info: Dict[str, str] = Field(default_factory=dict, description="Metadata on models used for VQA and spatial grounding")
+    model_info: Dict[str, Any] = Field(default_factory=dict, description="Metadata on models used for VQA and spatial grounding")
     processing_time_sec: float
 
 

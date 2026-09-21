@@ -1,0 +1,5760 @@
+{
+  "info": {
+    "description": "SatQuery AI Reference Dataset (Assisted Annotations)",
+    "version": "1.0",
+    "year": 2026,
+    "date_created": "2026-09-21 10:26:08",
+    "is_verified_ground_truth": false,
+    "note": "All bounding boxes are candidate pseudo-labels. Must be verified/curated before supervised training."
+  },
+  "licenses": [
+    {
+      "id": 1,
+      "name": "Proprietary / Internal Research",
+      "url": ""
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "building",
+      "supercategory": "structure"
+    },
+    {
+      "id": 2,
+      "name": "road",
+      "supercategory": "infrastructure"
+    },
+    {
+      "id": 3,
+      "name": "water",
+      "supercategory": "natural"
+    },
+    {
+      "id": 4,
+      "name": "vegetation",
+      "supercategory": "natural"
+    },
+    {
+      "id": 5,
+      "name": "vehicle",
+      "supercategory": "transportation"
+    },
+    {
+      "id": 6,
+      "name": "ship",
+      "supercategory": "transportation"
+    },
+    {
+      "id": 7,
+      "name": "airport",
+      "supercategory": "infrastructure"
+    },
+    {
+      "id": 8,
+      "name": "agricultural field",
+      "supercategory": "landuse"
+    },
+    {
+      "id": 9,
+      "name": "construction area",
+      "supercategory": "landuse"
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "file_name": "Screenshot 2026-09-21 095848.png",
+      "width": 1647,
+      "height": 905,
+      "source_path": "D:\\Satquery Ai\\Train model pictures\\Screenshot 2026-09-21 095848.png"
+    },
+    {
+      "id": 2,
+      "file_name": "Screenshot 2026-09-21 100500.png",
+      "width": 1488,
+      "height": 1016,
+      "source_path": "D:\\Satquery Ai\\Train model pictures\\Screenshot 2026-09-21 100500.png"
+    }
+  ],
+  "annotations": [
+    {
+      "id": 1,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.2936,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 2,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        806.01,
+        8.83,
+        505.79,
+        285.22
+      ],
+      "area": 144261.42,
+      "confidence_score": 0.1544,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 3,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        538.04,
+        775.11,
+        235.48,
+        112.21
+      ],
+      "area": 26423.21,
+      "confidence_score": 0.1467,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 4,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        849.11,
+        137.89,
+        173.4,
+        189.16
+      ],
+      "area": 32800.34,
+      "confidence_score": 0.1401,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 5,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1224.68,
+        123.0,
+        89.78,
+        153.01
+      ],
+      "area": 13737.24,
+      "confidence_score": 0.1373,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 6,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1155.23,
+        774.58,
+        152.75,
+        127.09
+      ],
+      "area": 19413.0,
+      "confidence_score": 0.1316,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 7,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1020.53,
+        303.58,
+        293.64,
+        365.7
+      ],
+      "area": 107384.15,
+      "confidence_score": 0.1194,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 8,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        863.58,
+        653.95,
+        161.82,
+        161.39
+      ],
+      "area": 26116.13,
+      "confidence_score": 0.1166,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 9,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1029.13,
+        396.26,
+        75.7,
+        117.04
+      ],
+      "area": 8859.93,
+      "confidence_score": 0.1154,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 10,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        430.8,
+        10.5,
+        309.44,
+        223.76
+      ],
+      "area": 69240.29,
+      "confidence_score": 0.1131,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 11,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1193.34,
+        616.85,
+        125.84,
+        149.02
+      ],
+      "area": 18752.68,
+      "confidence_score": 0.1072,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 12,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1212.87,
+        445.03,
+        94.9,
+        131.42
+      ],
+      "area": 12471.76,
+      "confidence_score": 0.1061,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 13,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        444.59,
+        482.5,
+        439.11,
+        278.34
+      ],
+      "area": 122221.88,
+      "confidence_score": 0.103,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 14,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        691.09,
+        498.34,
+        190.06,
+        122.35
+      ],
+      "area": 23253.84,
+      "confidence_score": 0.0997,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 15,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        838.38,
+        196.24,
+        60.05,
+        72.35
+      ],
+      "area": 4344.62,
+      "confidence_score": 0.0947,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 16,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        743.41,
+        226.25,
+        213.46,
+        252.65
+      ],
+      "area": 53930.67,
+      "confidence_score": 0.0925,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 17,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1060.2,
+        527.98,
+        150.09,
+        130.15
+      ],
+      "area": 19534.21,
+      "confidence_score": 0.0917,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 18,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1243.42,
+        315.9,
+        71.04,
+        82.34
+      ],
+      "area": 5849.43,
+      "confidence_score": 0.0901,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 19,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        920.49,
+        828.14,
+        118.08,
+        76.86
+      ],
+      "area": 9075.63,
+      "confidence_score": 0.0891,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 20,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        571.24,
+        501.65,
+        115.73,
+        91.8
+      ],
+      "area": 10624.01,
+      "confidence_score": 0.0882,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 21,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1224.54,
+        501.59,
+        61.22,
+        59.15
+      ],
+      "area": 3621.16,
+      "confidence_score": 0.0864,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 22,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1057.57,
+        310.27,
+        66.57,
+        68.98
+      ],
+      "area": 4592.0,
+      "confidence_score": 0.08,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 23,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1079.3,
+        612.59,
+        238.57,
+        278.65
+      ],
+      "area": 66477.53,
+      "confidence_score": 0.0754,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 24,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1062.96,
+        389.16,
+        49.9,
+        46.28
+      ],
+      "area": 2309.37,
+      "confidence_score": 0.0727,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 25,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1175.19,
+        306.37,
+        137.1,
+        123.72
+      ],
+      "area": 16962.01,
+      "confidence_score": 0.0718,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 26,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        792.95,
+        63.83,
+        262.44,
+        360.91
+      ],
+      "area": 94717.22,
+      "confidence_score": 0.0685,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 27,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1260.63,
+        598.22,
+        50.77,
+        51.91
+      ],
+      "area": 2635.47,
+      "confidence_score": 0.0679,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 28,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        642.52,
+        285.8,
+        192.68,
+        203.83
+      ],
+      "area": 39273.96,
+      "confidence_score": 0.0654,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 29,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        931.05,
+        490.97,
+        22.56,
+        84.37
+      ],
+      "area": 1903.39,
+      "confidence_score": 0.0653,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 30,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        837.12,
+        491.42,
+        303.85,
+        340.42
+      ],
+      "area": 103436.62,
+      "confidence_score": 0.0648,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 31,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        687.64,
+        606.41,
+        158.66,
+        135.22
+      ],
+      "area": 21454.01,
+      "confidence_score": 0.0644,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 32,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        438.96,
+        502.39,
+        144.86,
+        124.15
+      ],
+      "area": 17984.37,
+      "confidence_score": 0.0644,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 33,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        715.48,
+        768.96,
+        47.21,
+        43.41
+      ],
+      "area": 2049.39,
+      "confidence_score": 0.0623,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 34,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        572.0,
+        418.46,
+        121.23,
+        77.98
+      ],
+      "area": 9453.52,
+      "confidence_score": 0.0619,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 35,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1160.07,
+        734.68,
+        81.12,
+        48.4
+      ],
+      "area": 3926.21,
+      "confidence_score": 0.0613,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 36,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1040.22,
+        287.99,
+        153.39,
+        144.49
+      ],
+      "area": 22163.32,
+      "confidence_score": 0.0612,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 37,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        441.36,
+        614.63,
+        178.19,
+        142.54
+      ],
+      "area": 25399.2,
+      "confidence_score": 0.0601,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 38,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        981.4,
+        797.38,
+        296.38,
+        107.62
+      ],
+      "area": 31896.42,
+      "confidence_score": 0.0589,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 39,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        755.57,
+        730.59,
+        99.14,
+        121.68
+      ],
+      "area": 12063.36,
+      "confidence_score": 0.0582,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 40,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1108.61,
+        718.77,
+        193.95,
+        118.81
+      ],
+      "area": 23043.2,
+      "confidence_score": 0.0581,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 41,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        735.06,
+        46.57,
+        101.96,
+        103.12
+      ],
+      "area": 10514.12,
+      "confidence_score": 0.0569,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 42,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        864.83,
+        49.12,
+        196.37,
+        149.95
+      ],
+      "area": 29445.68,
+      "confidence_score": 0.0561,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 43,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        660.33,
+        583.49,
+        27.63,
+        26.89
+      ],
+      "area": 742.97,
+      "confidence_score": 0.0554,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 44,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1101.93,
+        741.5,
+        101.58,
+        84.3
+      ],
+      "area": 8563.19,
+      "confidence_score": 0.0549,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 45,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        431.67,
+        354.14,
+        136.7,
+        144.73
+      ],
+      "area": 19784.59,
+      "confidence_score": 0.0547,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 46,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1057.8,
+        875.38,
+        83.78,
+        29.62
+      ],
+      "area": 2481.56,
+      "confidence_score": 0.0546,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 47,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1263.48,
+        677.68,
+        53.22,
+        68.45
+      ],
+      "area": 3642.91,
+      "confidence_score": 0.0536,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 48,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        448.5,
+        634.08,
+        830.0,
+        270.84
+      ],
+      "area": 224797.2,
+      "confidence_score": 0.0533,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 49,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        436.74,
+        245.98,
+        398.35,
+        257.57
+      ],
+      "area": 102603.01,
+      "confidence_score": 0.0513,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 50,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        764.61,
+        58.68,
+        45.15,
+        52.16
+      ],
+      "area": 2355.02,
+      "confidence_score": 0.0505,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 51,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1069.82,
+        510.04,
+        84.58,
+        51.71
+      ],
+      "area": 4373.63,
+      "confidence_score": 0.0501,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 52,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        433.04,
+        239.58,
+        30.31,
+        101.38
+      ],
+      "area": 3072.83,
+      "confidence_score": 0.0496,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 53,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        646.98,
+        309.63,
+        97.74,
+        109.54
+      ],
+      "area": 10706.44,
+      "confidence_score": 0.0494,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 54,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        475.39,
+        237.51,
+        113.54,
+        94.5
+      ],
+      "area": 10729.53,
+      "confidence_score": 0.0476,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 55,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        789.43,
+        295.57,
+        105.59,
+        117.15
+      ],
+      "area": 12369.87,
+      "confidence_score": 0.0475,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 56,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1038.4,
+        228.18,
+        271.95,
+        193.5
+      ],
+      "area": 52622.32,
+      "confidence_score": 0.0471,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 57,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        687.97,
+        502.67,
+        84.57,
+        101.05
+      ],
+      "area": 8545.8,
+      "confidence_score": 0.0463,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 58,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        533.54,
+        39.52,
+        56.35,
+        39.87
+      ],
+      "area": 2246.67,
+      "confidence_score": 0.0462,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 59,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        783.91,
+        863.97,
+        102.65,
+        41.01
+      ],
+      "area": 4209.68,
+      "confidence_score": 0.046,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 60,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        517.29,
+        740.42,
+        533.73,
+        164.15
+      ],
+      "area": 87611.78,
+      "confidence_score": 0.0455,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 61,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        875.58,
+        8.73,
+        274.41,
+        138.92
+      ],
+      "area": 38121.04,
+      "confidence_score": 0.0448,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 62,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1043.03,
+        17.05,
+        117.85,
+        88.16
+      ],
+      "area": 10389.66,
+      "confidence_score": 0.0447,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 63,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        658.02,
+        577.91,
+        36.49,
+        68.06
+      ],
+      "area": 2483.51,
+      "confidence_score": 0.0447,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 64,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1111.76,
+        385.82,
+        102.14,
+        69.55
+      ],
+      "area": 7103.84,
+      "confidence_score": 0.0444,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 65,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        435.33,
+        753.88,
+        65.14,
+        88.29
+      ],
+      "area": 5751.21,
+      "confidence_score": 0.0444,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 66,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        595.84,
+        342.52,
+        52.98,
+        73.13
+      ],
+      "area": 3874.43,
+      "confidence_score": 0.0441,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 67,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        608.81,
+        657.32,
+        55.63,
+        86.67
+      ],
+      "area": 4821.45,
+      "confidence_score": 0.0439,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 68,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1088.34,
+        441.69,
+        99.9,
+        85.06
+      ],
+      "area": 8497.49,
+      "confidence_score": 0.0438,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 69,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1033.63,
+        667.34,
+        30.28,
+        28.83
+      ],
+      "area": 872.97,
+      "confidence_score": 0.0432,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 70,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        605.48,
+        232.0,
+        134.63,
+        80.72
+      ],
+      "area": 10867.33,
+      "confidence_score": 0.043,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 71,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1223.21,
+        754.74,
+        48.83,
+        42.46
+      ],
+      "area": 2073.32,
+      "confidence_score": 0.0428,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 72,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        873.67,
+        282.04,
+        158.7,
+        146.84
+      ],
+      "area": 23303.51,
+      "confidence_score": 0.0423,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 73,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        434.34,
+        822.64,
+        82.26,
+        82.36
+      ],
+      "area": 6774.93,
+      "confidence_score": 0.0422,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 74,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1003.1,
+        371.31,
+        24.92,
+        27.13
+      ],
+      "area": 676.08,
+      "confidence_score": 0.0422,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 75,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        1183.01,
+        315.55,
+        43.24,
+        38.13
+      ],
+      "area": 1648.74,
+      "confidence_score": 0.0422,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 76,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        453.59,
+        234.04,
+        291.36,
+        111.44
+      ],
+      "area": 32469.16,
+      "confidence_score": 0.0421,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 77,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        830.77,
+        504.53,
+        73.52,
+        103.36
+      ],
+      "area": 7599.03,
+      "confidence_score": 0.042,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 78,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        591.61,
+        573.26,
+        103.85,
+        84.44
+      ],
+      "area": 8769.09,
+      "confidence_score": 0.0405,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 79,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        725.42,
+        628.95,
+        330.4,
+        238.56
+      ],
+      "area": 78820.22,
+      "confidence_score": 0.0402,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 80,
+      "image_id": 1,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        667.62,
+        658.53,
+        69.87,
+        87.36
+      ],
+      "area": 6103.84,
+      "confidence_score": 0.0401,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 81,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        638.84,
+        9.71,
+        369.52,
+        476.27
+      ],
+      "area": 175991.29,
+      "confidence_score": 0.2365,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 82,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        763.96,
+        682.14,
+        544.51,
+        220.42
+      ],
+      "area": 120020.89,
+      "confidence_score": 0.2326,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 83,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        435.94,
+        7.87,
+        464.22,
+        791.63
+      ],
+      "area": 367490.48,
+      "confidence_score": 0.1731,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 84,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        447.18,
+        490.44,
+        850.07,
+        414.56
+      ],
+      "area": 352405.02,
+      "confidence_score": 0.1565,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 85,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        447.23,
+        752.96,
+        329.45,
+        150.13
+      ],
+      "area": 49460.33,
+      "confidence_score": 0.1449,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 86,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        806.01,
+        8.83,
+        505.79,
+        285.22
+      ],
+      "area": 144261.42,
+      "confidence_score": 0.1303,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 87,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        439.29,
+        622.38,
+        228.21,
+        224.18
+      ],
+      "area": 51160.12,
+      "confidence_score": 0.1098,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 88,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        1098.34,
+        616.12,
+        200.95,
+        136.03
+      ],
+      "area": 27335.23,
+      "confidence_score": 0.1038,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 89,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        837.12,
+        491.42,
+        303.85,
+        340.42
+      ],
+      "area": 103436.62,
+      "confidence_score": 0.1031,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 90,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        444.59,
+        482.5,
+        439.11,
+        278.34
+      ],
+      "area": 122221.88,
+      "confidence_score": 0.1009,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 91,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        1023.41,
+        690.72,
+        282.74,
+        113.82
+      ],
+      "area": 32181.47,
+      "confidence_score": 0.0969,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 92,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        759.61,
+        207.97,
+        253.35,
+        288.23
+      ],
+      "area": 73023.07,
+      "confidence_score": 0.0957,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 93,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        863.58,
+        653.95,
+        161.82,
+        161.39
+      ],
+      "area": 26116.13,
+      "confidence_score": 0.0934,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 94,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        433.48,
+        799.0,
+        131.08,
+        105.01
+      ],
+      "area": 13764.71,
+      "confidence_score": 0.0895,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 95,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        430.8,
+        10.5,
+        309.44,
+        223.76
+      ],
+      "area": 69240.29,
+      "confidence_score": 0.0856,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 96,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        666.16,
+        13.98,
+        652.13,
+        695.58
+      ],
+      "area": 453608.59,
+      "confidence_score": 0.0852,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 97,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        725.42,
+        628.95,
+        330.4,
+        238.56
+      ],
+      "area": 78820.22,
+      "confidence_score": 0.0835,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 98,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        517.29,
+        740.42,
+        533.73,
+        164.15
+      ],
+      "area": 87611.78,
+      "confidence_score": 0.0834,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 99,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        684.6,
+        7.01,
+        153.04,
+        153.58
+      ],
+      "area": 23503.88,
+      "confidence_score": 0.0828,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 100,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        755.57,
+        730.59,
+        99.14,
+        121.68
+      ],
+      "area": 12063.36,
+      "confidence_score": 0.0781,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 101,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        1084.61,
+        595.9,
+        155.36,
+        82.43
+      ],
+      "area": 12806.32,
+      "confidence_score": 0.0739,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 102,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        981.4,
+        797.38,
+        296.38,
+        107.62
+      ],
+      "area": 31896.42,
+      "confidence_score": 0.0715,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 103,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        910.93,
+        415.72,
+        214.74,
+        224.56
+      ],
+      "area": 48222.01,
+      "confidence_score": 0.0703,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 104,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        1024.57,
+        473.65,
+        269.91,
+        211.92
+      ],
+      "area": 57199.33,
+      "confidence_score": 0.0638,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 105,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        992.89,
+        287.2,
+        317.9,
+        597.89
+      ],
+      "area": 190069.23,
+      "confidence_score": 0.0616,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 106,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        1224.68,
+        123.0,
+        89.78,
+        153.01
+      ],
+      "area": 13737.24,
+      "confidence_score": 0.0615,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 107,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        910.78,
+        405.38,
+        114.73,
+        102.39
+      ],
+      "area": 11747.2,
+      "confidence_score": 0.0609,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 108,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        703.99,
+        277.96,
+        135.97,
+        190.7
+      ],
+      "area": 25929.48,
+      "confidence_score": 0.0564,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 109,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        849.11,
+        137.89,
+        173.4,
+        189.16
+      ],
+      "area": 32800.34,
+      "confidence_score": 0.0544,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 110,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        437.83,
+        619.03,
+        127.73,
+        123.6
+      ],
+      "area": 15787.43,
+      "confidence_score": 0.0534,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 111,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        864.83,
+        49.12,
+        196.37,
+        149.95
+      ],
+      "area": 29445.68,
+      "confidence_score": 0.0519,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 112,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        951.73,
+        610.64,
+        117.67,
+        144.72
+      ],
+      "area": 17029.2,
+      "confidence_score": 0.0519,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 113,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        920.49,
+        828.14,
+        118.08,
+        76.86
+      ],
+      "area": 9075.63,
+      "confidence_score": 0.0506,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 114,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        873.67,
+        282.04,
+        158.7,
+        146.84
+      ],
+      "area": 23303.51,
+      "confidence_score": 0.0455,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 115,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        537.06,
+        866.7,
+        136.73,
+        37.29
+      ],
+      "area": 5098.66,
+      "confidence_score": 0.0442,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 116,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        456.92,
+        728.7,
+        163.54,
+        112.12
+      ],
+      "area": 18336.1,
+      "confidence_score": 0.0437,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 117,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        436.74,
+        245.98,
+        398.35,
+        257.57
+      ],
+      "area": 102603.01,
+      "confidence_score": 0.0431,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 118,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        827.76,
+        348.31,
+        131.87,
+        141.36
+      ],
+      "area": 18641.14,
+      "confidence_score": 0.0428,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 119,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        594.48,
+        606.47,
+        255.52,
+        151.56
+      ],
+      "area": 38726.61,
+      "confidence_score": 0.0423,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 120,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        1038.4,
+        228.18,
+        271.95,
+        193.5
+      ],
+      "area": 52622.32,
+      "confidence_score": 0.0415,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 121,
+      "image_id": 1,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        911.11,
+        600.8,
+        53.79,
+        49.68
+      ],
+      "area": 2672.29,
+      "confidence_score": 0.0404,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 122,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        981.4,
+        797.38,
+        296.38,
+        107.62
+      ],
+      "area": 31896.42,
+      "confidence_score": 0.2187,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 123,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        1100.21,
+        830.82,
+        164.46,
+        73.76
+      ],
+      "area": 12130.57,
+      "confidence_score": 0.1291,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 124,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        448.5,
+        634.08,
+        830.0,
+        270.84
+      ],
+      "area": 224797.2,
+      "confidence_score": 0.1261,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 125,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        1000.78,
+        697.47,
+        312.08,
+        190.92
+      ],
+      "area": 59582.31,
+      "confidence_score": 0.1088,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 126,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        638.84,
+        9.71,
+        369.52,
+        476.27
+      ],
+      "area": 175991.29,
+      "confidence_score": 0.0918,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 127,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.0804,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 128,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        1052.5,
+        790.16,
+        83.38,
+        52.01
+      ],
+      "area": 4336.59,
+      "confidence_score": 0.0656,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 129,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        806.01,
+        8.83,
+        505.79,
+        285.22
+      ],
+      "area": 144261.42,
+      "confidence_score": 0.0588,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 130,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        715.48,
+        768.96,
+        47.21,
+        43.41
+      ],
+      "area": 2049.39,
+      "confidence_score": 0.0587,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 131,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        838.38,
+        196.24,
+        60.05,
+        72.35
+      ],
+      "area": 4344.62,
+      "confidence_score": 0.0457,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 132,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        447.23,
+        752.96,
+        329.45,
+        150.13
+      ],
+      "area": 49460.33,
+      "confidence_score": 0.045,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 133,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        1088.34,
+        441.69,
+        99.9,
+        85.06
+      ],
+      "area": 8497.49,
+      "confidence_score": 0.0443,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 134,
+      "image_id": 1,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        439.29,
+        622.38,
+        228.21,
+        224.18
+      ],
+      "area": 51160.12,
+      "confidence_score": 0.0425,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 135,
+      "image_id": 1,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.0836,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 136,
+      "image_id": 1,
+      "category_id": 5,
+      "category_name": "vehicle",
+      "bbox": [
+        538.04,
+        775.11,
+        235.48,
+        112.21
+      ],
+      "area": 26423.21,
+      "confidence_score": 0.0524,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 137,
+      "image_id": 1,
+      "category_id": 5,
+      "category_name": "vehicle",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.0496,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 138,
+      "image_id": 1,
+      "category_id": 5,
+      "category_name": "vehicle",
+      "bbox": [
+        430.8,
+        10.5,
+        309.44,
+        223.76
+      ],
+      "area": 69240.29,
+      "confidence_score": 0.045,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 139,
+      "image_id": 1,
+      "category_id": 5,
+      "category_name": "vehicle",
+      "bbox": [
+        863.58,
+        653.95,
+        161.82,
+        161.39
+      ],
+      "area": 26116.13,
+      "confidence_score": 0.042,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 140,
+      "image_id": 1,
+      "category_id": 6,
+      "category_name": "ship",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.0808,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 141,
+      "image_id": 1,
+      "category_id": 6,
+      "category_name": "ship",
+      "bbox": [
+        538.04,
+        775.11,
+        235.48,
+        112.21
+      ],
+      "area": 26423.21,
+      "confidence_score": 0.0534,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 142,
+      "image_id": 1,
+      "category_id": 6,
+      "category_name": "ship",
+      "bbox": [
+        1155.23,
+        774.58,
+        152.75,
+        127.09
+      ],
+      "area": 19413.0,
+      "confidence_score": 0.0513,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 143,
+      "image_id": 1,
+      "category_id": 6,
+      "category_name": "ship",
+      "bbox": [
+        430.8,
+        10.5,
+        309.44,
+        223.76
+      ],
+      "area": 69240.29,
+      "confidence_score": 0.0511,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 144,
+      "image_id": 1,
+      "category_id": 6,
+      "category_name": "ship",
+      "bbox": [
+        1052.5,
+        790.16,
+        83.38,
+        52.01
+      ],
+      "area": 4336.59,
+      "confidence_score": 0.0458,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 145,
+      "image_id": 1,
+      "category_id": 6,
+      "category_name": "ship",
+      "bbox": [
+        863.58,
+        653.95,
+        161.82,
+        161.39
+      ],
+      "area": 26116.13,
+      "confidence_score": 0.0411,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 146,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.1811,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 147,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        806.01,
+        8.83,
+        505.79,
+        285.22
+      ],
+      "area": 144261.42,
+      "confidence_score": 0.1437,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 148,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        638.84,
+        9.71,
+        369.52,
+        476.27
+      ],
+      "area": 175991.29,
+      "confidence_score": 0.114,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 149,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        448.5,
+        634.08,
+        830.0,
+        270.84
+      ],
+      "area": 224797.2,
+      "confidence_score": 0.1025,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 150,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        430.8,
+        10.5,
+        309.44,
+        223.76
+      ],
+      "area": 69240.29,
+      "confidence_score": 0.0837,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 151,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        837.12,
+        491.42,
+        303.85,
+        340.42
+      ],
+      "area": 103436.62,
+      "confidence_score": 0.0796,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 152,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        981.4,
+        797.38,
+        296.38,
+        107.62
+      ],
+      "area": 31896.42,
+      "confidence_score": 0.0648,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 153,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        538.04,
+        775.11,
+        235.48,
+        112.21
+      ],
+      "area": 26423.21,
+      "confidence_score": 0.0628,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 154,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        863.58,
+        653.95,
+        161.82,
+        161.39
+      ],
+      "area": 26116.13,
+      "confidence_score": 0.0623,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 155,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        743.41,
+        226.25,
+        213.46,
+        252.65
+      ],
+      "area": 53930.67,
+      "confidence_score": 0.0567,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 156,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        439.29,
+        622.38,
+        228.21,
+        224.18
+      ],
+      "area": 51160.12,
+      "confidence_score": 0.0534,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 157,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        1000.78,
+        697.47,
+        312.08,
+        190.92
+      ],
+      "area": 59582.31,
+      "confidence_score": 0.0527,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 158,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        444.59,
+        482.5,
+        439.11,
+        278.34
+      ],
+      "area": 122221.88,
+      "confidence_score": 0.0525,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 159,
+      "image_id": 1,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        864.83,
+        49.12,
+        196.37,
+        149.95
+      ],
+      "area": 29445.68,
+      "confidence_score": 0.0453,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 160,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.0878,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 161,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        806.01,
+        8.83,
+        505.79,
+        285.22
+      ],
+      "area": 144261.42,
+      "confidence_score": 0.0744,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 162,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        837.12,
+        491.42,
+        303.85,
+        340.42
+      ],
+      "area": 103436.62,
+      "confidence_score": 0.0656,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 163,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        439.29,
+        622.38,
+        228.21,
+        224.18
+      ],
+      "area": 51160.12,
+      "confidence_score": 0.0631,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 164,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        430.8,
+        10.5,
+        309.44,
+        223.76
+      ],
+      "area": 69240.29,
+      "confidence_score": 0.0454,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 165,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        981.4,
+        797.38,
+        296.38,
+        107.62
+      ],
+      "area": 31896.42,
+      "confidence_score": 0.0453,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 166,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        448.5,
+        634.08,
+        830.0,
+        270.84
+      ],
+      "area": 224797.2,
+      "confidence_score": 0.0448,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 167,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        456.92,
+        728.7,
+        163.54,
+        112.12
+      ],
+      "area": 18336.1,
+      "confidence_score": 0.0428,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 168,
+      "image_id": 1,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        743.41,
+        226.25,
+        213.46,
+        252.65
+      ],
+      "area": 53930.67,
+      "confidence_score": 0.0423,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 169,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        437.87,
+        8.63,
+        882.96,
+        896.37
+      ],
+      "area": 791458.86,
+      "confidence_score": 0.325,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 170,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        430.8,
+        10.5,
+        309.44,
+        223.76
+      ],
+      "area": 69240.29,
+      "confidence_score": 0.2099,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 171,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        849.11,
+        137.89,
+        173.4,
+        189.16
+      ],
+      "area": 32800.34,
+      "confidence_score": 0.1985,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 172,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        806.01,
+        8.83,
+        505.79,
+        285.22
+      ],
+      "area": 144261.42,
+      "confidence_score": 0.1913,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 173,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1020.53,
+        303.58,
+        293.64,
+        365.7
+      ],
+      "area": 107384.15,
+      "confidence_score": 0.1892,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 174,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        538.04,
+        775.11,
+        235.48,
+        112.21
+      ],
+      "area": 26423.21,
+      "confidence_score": 0.1881,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 175,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        863.58,
+        653.95,
+        161.82,
+        161.39
+      ],
+      "area": 26116.13,
+      "confidence_score": 0.1837,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 176,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        444.59,
+        482.5,
+        439.11,
+        278.34
+      ],
+      "area": 122221.88,
+      "confidence_score": 0.1722,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 177,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        448.5,
+        634.08,
+        830.0,
+        270.84
+      ],
+      "area": 224797.2,
+      "confidence_score": 0.1693,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 178,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1224.68,
+        123.0,
+        89.78,
+        153.01
+      ],
+      "area": 13737.24,
+      "confidence_score": 0.1574,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 179,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        792.95,
+        63.83,
+        262.44,
+        360.91
+      ],
+      "area": 94717.22,
+      "confidence_score": 0.1425,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 180,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        837.12,
+        491.42,
+        303.85,
+        340.42
+      ],
+      "area": 103436.62,
+      "confidence_score": 0.1407,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 181,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        743.41,
+        226.25,
+        213.46,
+        252.65
+      ],
+      "area": 53930.67,
+      "confidence_score": 0.1375,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 182,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        981.4,
+        797.38,
+        296.38,
+        107.62
+      ],
+      "area": 31896.42,
+      "confidence_score": 0.133,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 183,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1193.34,
+        616.85,
+        125.84,
+        149.02
+      ],
+      "area": 18752.68,
+      "confidence_score": 0.1193,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 184,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        517.29,
+        740.42,
+        533.73,
+        164.15
+      ],
+      "area": 87611.78,
+      "confidence_score": 0.1159,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 185,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1155.23,
+        774.58,
+        152.75,
+        127.09
+      ],
+      "area": 19413.0,
+      "confidence_score": 0.1135,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 186,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        441.36,
+        614.63,
+        178.19,
+        142.54
+      ],
+      "area": 25399.2,
+      "confidence_score": 0.1095,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 187,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        755.57,
+        730.59,
+        99.14,
+        121.68
+      ],
+      "area": 12063.36,
+      "confidence_score": 0.1042,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 188,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1029.13,
+        396.26,
+        75.7,
+        117.04
+      ],
+      "area": 8859.93,
+      "confidence_score": 0.103,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 189,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        436.74,
+        245.98,
+        398.35,
+        257.57
+      ],
+      "area": 102603.01,
+      "confidence_score": 0.1023,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 190,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        920.49,
+        828.14,
+        118.08,
+        76.86
+      ],
+      "area": 9075.63,
+      "confidence_score": 0.1013,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 191,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        684.6,
+        7.01,
+        153.04,
+        153.58
+      ],
+      "area": 23503.88,
+      "confidence_score": 0.0997,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 192,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1060.2,
+        527.98,
+        150.09,
+        130.15
+      ],
+      "area": 19534.21,
+      "confidence_score": 0.0988,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 193,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        725.42,
+        628.95,
+        330.4,
+        238.56
+      ],
+      "area": 78820.22,
+      "confidence_score": 0.0974,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 194,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1079.3,
+        612.59,
+        238.57,
+        278.65
+      ],
+      "area": 66477.53,
+      "confidence_score": 0.0972,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 195,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        864.83,
+        49.12,
+        196.37,
+        149.95
+      ],
+      "area": 29445.68,
+      "confidence_score": 0.0971,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 196,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        642.52,
+        285.8,
+        192.68,
+        203.83
+      ],
+      "area": 39273.96,
+      "confidence_score": 0.0935,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 197,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        691.09,
+        498.34,
+        190.06,
+        122.35
+      ],
+      "area": 23253.84,
+      "confidence_score": 0.0916,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 198,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1212.87,
+        445.03,
+        94.9,
+        131.42
+      ],
+      "area": 12471.76,
+      "confidence_score": 0.0903,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 199,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1057.57,
+        310.27,
+        66.57,
+        68.98
+      ],
+      "area": 4592.0,
+      "confidence_score": 0.0881,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 200,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1040.22,
+        287.99,
+        153.39,
+        144.49
+      ],
+      "area": 22163.32,
+      "confidence_score": 0.079,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 201,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1108.61,
+        718.77,
+        193.95,
+        118.81
+      ],
+      "area": 23043.2,
+      "confidence_score": 0.0779,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 202,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1038.4,
+        228.18,
+        271.95,
+        193.5
+      ],
+      "area": 52622.32,
+      "confidence_score": 0.077,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 203,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1088.34,
+        441.69,
+        99.9,
+        85.06
+      ],
+      "area": 8497.49,
+      "confidence_score": 0.0743,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 204,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        931.05,
+        490.97,
+        22.56,
+        84.37
+      ],
+      "area": 1903.39,
+      "confidence_score": 0.0711,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 205,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        873.67,
+        282.04,
+        158.7,
+        146.84
+      ],
+      "area": 23303.51,
+      "confidence_score": 0.07,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 206,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        687.64,
+        606.41,
+        158.66,
+        135.22
+      ],
+      "area": 21454.01,
+      "confidence_score": 0.067,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 207,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        572.0,
+        418.46,
+        121.23,
+        77.98
+      ],
+      "area": 9453.52,
+      "confidence_score": 0.0669,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 208,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        794.17,
+        4.95,
+        588.64,
+        634.57
+      ],
+      "area": 373533.28,
+      "confidence_score": 0.0655,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 209,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1062.96,
+        389.16,
+        49.9,
+        46.28
+      ],
+      "area": 2309.37,
+      "confidence_score": 0.0655,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 210,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1069.82,
+        510.04,
+        84.58,
+        51.71
+      ],
+      "area": 4373.63,
+      "confidence_score": 0.0638,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 211,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1175.19,
+        306.37,
+        137.1,
+        123.72
+      ],
+      "area": 16962.01,
+      "confidence_score": 0.0638,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 212,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        571.24,
+        501.65,
+        115.73,
+        91.8
+      ],
+      "area": 10624.01,
+      "confidence_score": 0.0636,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 213,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        789.43,
+        295.57,
+        105.59,
+        117.15
+      ],
+      "area": 12369.87,
+      "confidence_score": 0.0614,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 214,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        453.59,
+        234.04,
+        291.36,
+        111.44
+      ],
+      "area": 32469.16,
+      "confidence_score": 0.0612,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 215,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        838.38,
+        196.24,
+        60.05,
+        72.35
+      ],
+      "area": 4344.62,
+      "confidence_score": 0.0606,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 216,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        431.67,
+        354.14,
+        136.7,
+        144.73
+      ],
+      "area": 19784.59,
+      "confidence_score": 0.0605,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 217,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1224.54,
+        501.59,
+        61.22,
+        59.15
+      ],
+      "area": 3621.16,
+      "confidence_score": 0.0603,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 218,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        970.79,
+        625.39,
+        84.6,
+        115.89
+      ],
+      "area": 9804.29,
+      "confidence_score": 0.0586,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 219,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1116.49,
+        6.46,
+        191.37,
+        127.24
+      ],
+      "area": 24349.92,
+      "confidence_score": 0.0564,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 220,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1341.01,
+        409.35,
+        297.59,
+        77.12
+      ],
+      "area": 22950.14,
+      "confidence_score": 0.0562,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 221,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1101.93,
+        741.5,
+        101.58,
+        84.3
+      ],
+      "area": 8563.19,
+      "confidence_score": 0.0549,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 222,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        438.96,
+        502.39,
+        144.86,
+        124.15
+      ],
+      "area": 17984.37,
+      "confidence_score": 0.0546,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 223,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        434.34,
+        822.64,
+        82.26,
+        82.36
+      ],
+      "area": 6774.93,
+      "confidence_score": 0.0544,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 224,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        527.83,
+        75.8,
+        135.89,
+        115.3
+      ],
+      "area": 15668.12,
+      "confidence_score": 0.0541,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 225,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1371.86,
+        81.48,
+        246.81,
+        135.76
+      ],
+      "area": 33506.93,
+      "confidence_score": 0.0528,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 226,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        715.48,
+        768.96,
+        47.21,
+        43.41
+      ],
+      "area": 2049.39,
+      "confidence_score": 0.0517,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 227,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1111.76,
+        385.82,
+        102.14,
+        69.55
+      ],
+      "area": 7103.84,
+      "confidence_score": 0.0516,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 228,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        0.0,
+        534.58,
+        197.33,
+        144.99
+      ],
+      "area": 28610.88,
+      "confidence_score": 0.0516,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 229,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        456.92,
+        728.7,
+        163.54,
+        112.12
+      ],
+      "area": 18336.1,
+      "confidence_score": 0.0514,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 230,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        783.91,
+        863.97,
+        102.65,
+        41.01
+      ],
+      "area": 4209.68,
+      "confidence_score": 0.0505,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 231,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        833.42,
+        378.31,
+        85.82,
+        108.18
+      ],
+      "area": 9284.01,
+      "confidence_score": 0.0505,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 232,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1043.03,
+        17.05,
+        117.85,
+        88.16
+      ],
+      "area": 10389.66,
+      "confidence_score": 0.0504,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 233,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        595.84,
+        342.52,
+        52.98,
+        73.13
+      ],
+      "area": 3874.43,
+      "confidence_score": 0.0503,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 234,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1057.8,
+        875.38,
+        83.78,
+        29.62
+      ],
+      "area": 2481.56,
+      "confidence_score": 0.0499,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 235,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1100.21,
+        830.82,
+        164.46,
+        73.76
+      ],
+      "area": 12130.57,
+      "confidence_score": 0.0494,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 236,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1033.6,
+        57.37,
+        231.39,
+        200.03
+      ],
+      "area": 46284.94,
+      "confidence_score": 0.0491,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 237,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1393.08,
+        498.73,
+        135.46,
+        48.56
+      ],
+      "area": 6577.94,
+      "confidence_score": 0.0483,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 238,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1243.42,
+        315.9,
+        71.04,
+        82.34
+      ],
+      "area": 5849.43,
+      "confidence_score": 0.0471,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 239,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1052.5,
+        790.16,
+        83.38,
+        52.01
+      ],
+      "area": 4336.59,
+      "confidence_score": 0.047,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 240,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        691.17,
+        6.55,
+        69.64,
+        54.81
+      ],
+      "area": 3816.97,
+      "confidence_score": 0.0469,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 241,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        433.04,
+        239.58,
+        30.31,
+        101.38
+      ],
+      "area": 3072.83,
+      "confidence_score": 0.046,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 242,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        764.61,
+        58.68,
+        45.15,
+        52.16
+      ],
+      "area": 2355.02,
+      "confidence_score": 0.046,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 243,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        475.39,
+        237.51,
+        113.54,
+        94.5
+      ],
+      "area": 10729.53,
+      "confidence_score": 0.0459,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 244,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        910.78,
+        405.38,
+        114.73,
+        102.39
+      ],
+      "area": 11747.2,
+      "confidence_score": 0.044,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 245,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        646.98,
+        309.63,
+        97.74,
+        109.54
+      ],
+      "area": 10706.44,
+      "confidence_score": 0.0422,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 246,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        591.61,
+        573.26,
+        103.85,
+        84.44
+      ],
+      "area": 8769.09,
+      "confidence_score": 0.0413,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 247,
+      "image_id": 1,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1260.63,
+        598.22,
+        50.77,
+        51.91
+      ],
+      "area": 2635.47,
+      "confidence_score": 0.0401,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 248,
+      "image_id": 2,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        377.38,
+        84.91,
+        829.18,
+        885.63
+      ],
+      "area": 734346.68,
+      "confidence_score": 0.1129,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 249,
+      "image_id": 2,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        566.21,
+        900.61,
+        81.17,
+        65.34
+      ],
+      "area": 5303.65,
+      "confidence_score": 0.0779,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 250,
+      "image_id": 2,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        456.48,
+        104.71,
+        69.74,
+        33.1
+      ],
+      "area": 2308.39,
+      "confidence_score": 0.0754,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 251,
+      "image_id": 2,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        898.27,
+        623.64,
+        120.44,
+        134.81
+      ],
+      "area": 16236.52,
+      "confidence_score": 0.0453,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 252,
+      "image_id": 2,
+      "category_id": 1,
+      "category_name": "building",
+      "bbox": [
+        670.32,
+        538.27,
+        49.99,
+        22.54
+      ],
+      "area": 1126.77,
+      "confidence_score": 0.0445,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 253,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        492.55,
+        98.86,
+        256.64,
+        772.99
+      ],
+      "area": 198380.15,
+      "confidence_score": 0.3718,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 254,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        521.12,
+        568.37,
+        654.57,
+        400.34
+      ],
+      "area": 262050.55,
+      "confidence_score": 0.2715,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 255,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        548.33,
+        593.85,
+        320.44,
+        285.29
+      ],
+      "area": 91418.33,
+      "confidence_score": 0.234,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 256,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        532.83,
+        620.18,
+        175.64,
+        229.61
+      ],
+      "area": 40328.7,
+      "confidence_score": 0.1722,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 257,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        1032.91,
+        864.52,
+        110.85,
+        104.88
+      ],
+      "area": 11625.95,
+      "confidence_score": 0.1089,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 258,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        830.3,
+        787.91,
+        295.71,
+        182.18
+      ],
+      "area": 53872.45,
+      "confidence_score": 0.1055,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 259,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        377.38,
+        84.91,
+        829.18,
+        885.63
+      ],
+      "area": 734346.68,
+      "confidence_score": 0.1039,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 260,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        919.78,
+        593.41,
+        179.68,
+        197.16
+      ],
+      "area": 35425.71,
+      "confidence_score": 0.0924,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 261,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        891.43,
+        616.27,
+        298.18,
+        346.14
+      ],
+      "area": 103212.03,
+      "confidence_score": 0.0878,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 262,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        571.14,
+        84.6,
+        444.09,
+        614.05
+      ],
+      "area": 272693.46,
+      "confidence_score": 0.0784,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 263,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        762.82,
+        95.39,
+        137.34,
+        317.73
+      ],
+      "area": 43637.04,
+      "confidence_score": 0.0784,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 264,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        845.82,
+        237.22,
+        27.73,
+        147.99
+      ],
+      "area": 4103.76,
+      "confidence_score": 0.0733,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 265,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        366.23,
+        103.83,
+        288.05,
+        841.74
+      ],
+      "area": 242463.21,
+      "confidence_score": 0.0724,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 266,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        898.27,
+        623.64,
+        120.44,
+        134.81
+      ],
+      "area": 16236.52,
+      "confidence_score": 0.0689,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 267,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        551.87,
+        236.07,
+        98.2,
+        174.83
+      ],
+      "area": 17168.31,
+      "confidence_score": 0.0687,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 268,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        500.93,
+        137.17,
+        147.62,
+        347.21
+      ],
+      "area": 51255.14,
+      "confidence_score": 0.0679,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 269,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        366.79,
+        345.78,
+        135.76,
+        576.11
+      ],
+      "area": 78212.69,
+      "confidence_score": 0.0515,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 270,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        560.38,
+        455.92,
+        155.73,
+        246.12
+      ],
+      "area": 38328.27,
+      "confidence_score": 0.0472,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 271,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        648.66,
+        92.12,
+        98.14,
+        140.16
+      ],
+      "area": 13755.3,
+      "confidence_score": 0.0467,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 272,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        694.36,
+        90.42,
+        112.38,
+        157.08
+      ],
+      "area": 17652.65,
+      "confidence_score": 0.0467,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 273,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        957.2,
+        131.0,
+        94.2,
+        66.27
+      ],
+      "area": 6242.63,
+      "confidence_score": 0.0457,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 274,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        856.58,
+        815.49,
+        138.49,
+        132.76
+      ],
+      "area": 18385.93,
+      "confidence_score": 0.0456,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 275,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        562.04,
+        119.23,
+        168.43,
+        414.79
+      ],
+      "area": 69863.08,
+      "confidence_score": 0.0451,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 276,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        703.47,
+        613.39,
+        139.98,
+        121.14
+      ],
+      "area": 16957.18,
+      "confidence_score": 0.0444,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 277,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        579.87,
+        618.52,
+        50.85,
+        90.48
+      ],
+      "area": 4600.91,
+      "confidence_score": 0.0444,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 278,
+      "image_id": 2,
+      "category_id": 2,
+      "category_name": "road",
+      "bbox": [
+        477.27,
+        469.31,
+        49.96,
+        274.8
+      ],
+      "area": 13729.01,
+      "confidence_score": 0.0429,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 279,
+      "image_id": 2,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        492.55,
+        98.86,
+        256.64,
+        772.99
+      ],
+      "area": 198380.15,
+      "confidence_score": 0.2356,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 280,
+      "image_id": 2,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        521.12,
+        568.37,
+        654.57,
+        400.34
+      ],
+      "area": 262050.55,
+      "confidence_score": 0.2258,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 281,
+      "image_id": 2,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        548.33,
+        593.85,
+        320.44,
+        285.29
+      ],
+      "area": 91418.33,
+      "confidence_score": 0.1446,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 282,
+      "image_id": 2,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        532.83,
+        620.18,
+        175.64,
+        229.61
+      ],
+      "area": 40328.7,
+      "confidence_score": 0.1092,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 283,
+      "image_id": 2,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        377.38,
+        84.91,
+        829.18,
+        885.63
+      ],
+      "area": 734346.68,
+      "confidence_score": 0.0907,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 284,
+      "image_id": 2,
+      "category_id": 3,
+      "category_name": "water",
+      "bbox": [
+        830.3,
+        787.91,
+        295.71,
+        182.18
+      ],
+      "area": 53872.45,
+      "confidence_score": 0.0461,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 285,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        377.38,
+        84.91,
+        829.18,
+        885.63
+      ],
+      "area": 734346.68,
+      "confidence_score": 0.3609,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 286,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        984.91,
+        101.5,
+        212.95,
+        263.68
+      ],
+      "area": 56150.66,
+      "confidence_score": 0.0961,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 287,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        373.05,
+        96.36,
+        136.66,
+        160.39
+      ],
+      "area": 21918.9,
+      "confidence_score": 0.0795,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 288,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        947.86,
+        433.79,
+        248.67,
+        390.26
+      ],
+      "area": 97045.95,
+      "confidence_score": 0.0712,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 289,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        366.23,
+        103.83,
+        288.05,
+        841.74
+      ],
+      "area": 242463.21,
+      "confidence_score": 0.0626,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 290,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        642.63,
+        780.32,
+        482.54,
+        191.07
+      ],
+      "area": 92198.92,
+      "confidence_score": 0.0556,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 291,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        552.31,
+        655.95,
+        295.8,
+        308.26
+      ],
+      "area": 91183.31,
+      "confidence_score": 0.0523,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 292,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        1105.08,
+        95.23,
+        94.69,
+        127.19
+      ],
+      "area": 12043.62,
+      "confidence_score": 0.0481,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 293,
+      "image_id": 2,
+      "category_id": 4,
+      "category_name": "vegetation",
+      "bbox": [
+        379.45,
+        96.17,
+        275.55,
+        213.4
+      ],
+      "area": 58802.37,
+      "confidence_score": 0.0477,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 294,
+      "image_id": 2,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        492.55,
+        98.86,
+        256.64,
+        772.99
+      ],
+      "area": 198380.15,
+      "confidence_score": 0.1172,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 295,
+      "image_id": 2,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        377.38,
+        84.91,
+        829.18,
+        885.63
+      ],
+      "area": 734346.68,
+      "confidence_score": 0.1088,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 296,
+      "image_id": 2,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        521.12,
+        568.37,
+        654.57,
+        400.34
+      ],
+      "area": 262050.55,
+      "confidence_score": 0.092,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 297,
+      "image_id": 2,
+      "category_id": 7,
+      "category_name": "airport",
+      "bbox": [
+        548.33,
+        593.85,
+        320.44,
+        285.29
+      ],
+      "area": 91418.33,
+      "confidence_score": 0.061,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 298,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        377.38,
+        84.91,
+        829.18,
+        885.63
+      ],
+      "area": 734346.68,
+      "confidence_score": 0.1888,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 299,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        492.55,
+        98.86,
+        256.64,
+        772.99
+      ],
+      "area": 198380.15,
+      "confidence_score": 0.1143,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 300,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        521.12,
+        568.37,
+        654.57,
+        400.34
+      ],
+      "area": 262050.55,
+      "confidence_score": 0.0997,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 301,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        373.05,
+        96.36,
+        136.66,
+        160.39
+      ],
+      "area": 21918.9,
+      "confidence_score": 0.0674,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 302,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        551.87,
+        236.07,
+        98.2,
+        174.83
+      ],
+      "area": 17168.31,
+      "confidence_score": 0.0648,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 303,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        552.31,
+        655.95,
+        295.8,
+        308.26
+      ],
+      "area": 91183.31,
+      "confidence_score": 0.0617,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 304,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        532.83,
+        620.18,
+        175.64,
+        229.61
+      ],
+      "area": 40328.7,
+      "confidence_score": 0.0566,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 305,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        898.27,
+        623.64,
+        120.44,
+        134.81
+      ],
+      "area": 16236.52,
+      "confidence_score": 0.0558,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 306,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        891.43,
+        616.27,
+        298.18,
+        346.14
+      ],
+      "area": 103212.03,
+      "confidence_score": 0.0498,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 307,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        642.63,
+        780.32,
+        482.54,
+        191.07
+      ],
+      "area": 92198.92,
+      "confidence_score": 0.0487,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 308,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        694.36,
+        90.42,
+        112.38,
+        157.08
+      ],
+      "area": 17652.65,
+      "confidence_score": 0.0436,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 309,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        366.23,
+        103.83,
+        288.05,
+        841.74
+      ],
+      "area": 242463.21,
+      "confidence_score": 0.0414,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 310,
+      "image_id": 2,
+      "category_id": 8,
+      "category_name": "agricultural field",
+      "bbox": [
+        432.35,
+        100.35,
+        112.06,
+        87.18
+      ],
+      "area": 9769.39,
+      "confidence_score": 0.0412,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 311,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        377.38,
+        84.91,
+        829.18,
+        885.63
+      ],
+      "area": 734346.68,
+      "confidence_score": 0.3127,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 312,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        521.12,
+        568.37,
+        654.57,
+        400.34
+      ],
+      "area": 262050.55,
+      "confidence_score": 0.2481,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 313,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        492.55,
+        98.86,
+        256.64,
+        772.99
+      ],
+      "area": 198380.15,
+      "confidence_score": 0.22,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 314,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        548.33,
+        593.85,
+        320.44,
+        285.29
+      ],
+      "area": 91418.33,
+      "confidence_score": 0.1248,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 315,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        642.63,
+        780.32,
+        482.54,
+        191.07
+      ],
+      "area": 92198.92,
+      "confidence_score": 0.1082,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 316,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        532.83,
+        620.18,
+        175.64,
+        229.61
+      ],
+      "area": 40328.7,
+      "confidence_score": 0.0883,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 317,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        898.27,
+        623.64,
+        120.44,
+        134.81
+      ],
+      "area": 16236.52,
+      "confidence_score": 0.0808,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 318,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        373.05,
+        96.36,
+        136.66,
+        160.39
+      ],
+      "area": 21918.9,
+      "confidence_score": 0.0702,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 319,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        957.2,
+        131.0,
+        94.2,
+        66.27
+      ],
+      "area": 6242.63,
+      "confidence_score": 0.0652,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 320,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        641.27,
+        102.6,
+        308.26,
+        459.08
+      ],
+      "area": 141516.0,
+      "confidence_score": 0.0643,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 321,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        551.87,
+        236.07,
+        98.2,
+        174.83
+      ],
+      "area": 17168.31,
+      "confidence_score": 0.0629,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 322,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        829.79,
+        1.58,
+        173.36,
+        63.42
+      ],
+      "area": 10994.49,
+      "confidence_score": 0.0618,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 323,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        366.23,
+        103.83,
+        288.05,
+        841.74
+      ],
+      "area": 242463.21,
+      "confidence_score": 0.0603,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 324,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        0.0,
+        681.49,
+        194.78,
+        125.17
+      ],
+      "area": 24380.61,
+      "confidence_score": 0.058,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 325,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1190.85,
+        497.12,
+        290.07,
+        205.22
+      ],
+      "area": 59528.17,
+      "confidence_score": 0.0549,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 326,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        845.82,
+        237.22,
+        27.73,
+        147.99
+      ],
+      "area": 4103.76,
+      "confidence_score": 0.0544,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 327,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1262.24,
+        327.49,
+        170.71,
+        75.21
+      ],
+      "area": 12839.1,
+      "confidence_score": 0.0511,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 328,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        862.41,
+        98.13,
+        335.53,
+        292.92
+      ],
+      "area": 98283.45,
+      "confidence_score": 0.0508,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 329,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        999.4,
+        469.53,
+        250.57,
+        386.42
+      ],
+      "area": 96825.26,
+      "confidence_score": 0.0467,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 330,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        566.21,
+        900.61,
+        81.17,
+        65.34
+      ],
+      "area": 5303.65,
+      "confidence_score": 0.0445,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 331,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        856.58,
+        815.49,
+        138.49,
+        132.76
+      ],
+      "area": 18385.93,
+      "confidence_score": 0.0433,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 332,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        456.48,
+        104.71,
+        69.74,
+        33.1
+      ],
+      "area": 2308.39,
+      "confidence_score": 0.0423,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 333,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        1032.91,
+        864.52,
+        110.85,
+        104.88
+      ],
+      "area": 11625.95,
+      "confidence_score": 0.0417,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "id": 334,
+      "image_id": 2,
+      "category_id": 9,
+      "category_name": "construction area",
+      "bbox": [
+        762.82,
+        95.39,
+        137.34,
+        317.73
+      ],
+      "area": 43637.04,
+      "confidence_score": 0.0414,
+      "iscrowd": 0,
+      "is_pseudo_label": true,
+      "verification_status": "PENDING_HUMAN_REVIEW"
+    }
+  ]
+}
