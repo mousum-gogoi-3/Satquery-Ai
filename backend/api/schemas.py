@@ -122,12 +122,16 @@ class GroundedAnalysisResponse(BaseModel):
     file_id: str
     query: str
     answer: str = Field(..., description="Textual VQA answer from VLM engine")
+    analysis_type: Optional[str] = Field(default="grounding", description="Routed analysis type: 'image_understanding', 'grounding', 'counting', or 'temporal_change'")
+    target_concept: Optional[str] = Field(default=None, description="Extracted target concept label")
+    count: Optional[int] = Field(default=None, description="Detected object count for counting queries")
     evidence_regions: List[EvidenceRegion] = Field(default_factory=list, description="Spatial bounding boxes of detected visual evidence")
     overall_confidence: float = Field(..., ge=0.0, le=1.0)
     evidence_image_path: Optional[str] = Field(default=None, description="Relative path or URI to the rendered visual evidence image")
     source_image_dims: ImageDimensions
     model_info: Dict[str, Any] = Field(default_factory=dict, description="Metadata on models used for VQA and spatial grounding")
     processing_time_sec: float
+
 
 
 # Bi-Temporal Change Detection Schemas - Phase 4

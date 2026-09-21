@@ -2,6 +2,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from fastapi.staticfiles import StaticFiles
+
 from backend.config import settings
 from backend.utils.logger import get_logger
 from backend.api import health, upload, analysis
@@ -44,6 +46,10 @@ app.add_middleware(
 app.include_router(health.router, prefix=settings.API_PREFIX)
 app.include_router(upload.router, prefix=settings.API_PREFIX)
 app.include_router(analysis.router, prefix=settings.API_PREFIX)
+
+# Static Files Mount for data (results, processed thumbnails, etc.)
+app.mount("/data", StaticFiles(directory=str(settings.DATA_DIR)), name="data")
+
 
 
 @app.get("/")

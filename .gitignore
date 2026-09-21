@@ -52,3 +52,10 @@ htmlcov/
 /models/
 !backend/models/
 
+# Node & Frontend
+node_modules/
+dist/
+.vite/
+
+
+

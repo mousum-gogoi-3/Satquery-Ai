@@ -381,7 +381,13 @@ class GroundingEngine(BaseVLMEngine):
                 "prompts": ["construction site", "construction area", "earthworks", "excavation site"]
             }
         else:
-            target_str = cleaned if cleaned else "target object"
+            # Strip question phrases and generic meta terms from fallback
+            cleaned_fallback = re.sub(
+                r"\b(where\s+(is|are|can\s+i\s+find)|explain(\s+this)?|describe(\s+this)?|what\s+(is|are)(\s+in)?|show(\s+me)?|find|locate|detect|identify|this|the|image|scene|satellite|picture|photo|please)\b",
+                "",
+                cleaned
+            ).strip()
+            target_str = cleaned_fallback if cleaned_fallback and len(cleaned_fallback) >= 2 else "target object"
             return {
                 "category": target_str,
                 "prompts": [
@@ -391,6 +397,7 @@ class GroundingEngine(BaseVLMEngine):
                     f"overhead {target_str}"
                 ]
             }
+
 
     def detect_evidence(
         self,
