@@ -5,15 +5,18 @@ import numpy as np
 from PIL import Image
 
 from backend.config import settings
+from backend.remote_sensing.raster import RasterReader
 from backend.remote_sensing.alignment import ImageRegistrar
 from backend.remote_sensing.change_detection import BiTemporalChangeDetector
+from backend.remote_sensing.pair_validator import TemporalPairValidator
 from backend.models.temporal_classifier import TemporalChangeClassifier
 from backend.models.base import load_raster_as_pil_image
 from backend.utils.temporal_rendering import render_temporal_evidence
 from backend.api.schemas import (
     TemporalAnalysisRequest, TemporalAnalysisResponse,
     ChangeRegion, ChangeType, RegistrationQuality,
-    RegistrationDiagnostics
+    RegistrationDiagnostics, PairClassification,
+    PairValidationDiagnostics, TemporalStatistics
 )
 from backend.utils.logger import get_logger
 
@@ -53,7 +56,139 @@ class BiTemporalAnalysisEngine:
         before_path = Path(before_path)
         after_path = Path(after_path)
 
-        # 1. Multi-Tier Image Registration & Spatial Alignment
+        # ------------------------------------------------------------------
+        # STAGE 0: Input-Pair Validation (Pre-Registration Filter)
+        # ------------------------------------------------------------------
+        pair_diag = TemporalPairValidator.validate_pair(before_path, after_path)
+        meta_b = RasterReader.extract_metadata(before_path)
+        meta_a = RasterReader.extract_metadata(after_path)
+
+        logger.info(
+            f"\nPair Validation Report:\n"
+            f"- exact_hash_match: {pair_diag.exact_hash_match}\n"
+            f"- similarity_score: {pair_diag.similarity_score}\n"
+            f"- spatial_overlap_pct: {pair_diag.spatial_overlap_pct}\n"
+            f"- crs_compatible: {pair_diag.crs_compatible}\n"
+            f"- resolution_compatible: {pair_diag.resolution_compatible}\n"
+            f"- pair_classification: {pair_diag.classification.value}\n"
+            f"- reason: {pair_diag.reason}"
+        )
+
+        # Case 0A: EXACT DUPLICATE -> NO_CHANGE
+        if pair_diag.classification == PairClassification.IDENTICAL_IMAGES:
+            elapsed = time.perf_counter() - start_time
+            diag_identical = RegistrationDiagnostics(
+                method_applied="exact_duplicate_check",
+                overlap_percentage=100.0,
+                overlap_bounds=None,
+                original_dims_before=(meta_b.width, meta_b.height),
+                original_dims_after=(meta_a.width, meta_a.height),
+                aligned_dims=(meta_b.width, meta_b.height),
+                resolution_before=meta_b.resolution,
+                resolution_after=meta_a.resolution,
+                crs_before=meta_b.crs,
+                crs_after=meta_a.crs,
+                registration_quality=RegistrationQuality.HIGH
+            )
+            return TemporalAnalysisResponse(
+                file_id_before=file_id_before,
+                file_id_after=file_id_after,
+                query=query,
+                status="NO_CHANGE",
+                change_detected=False,
+                reason="IDENTICAL_IMAGES",
+                pair_validation=pair_diag,
+                statistics=TemporalStatistics(changed_pixels=0, change_percentage=0.0, changed_sq_meters=None),
+                summary="The uploaded Before and After images are identical. No temporal changes detected.",
+                dominant_change_type=None,
+                total_changed_area_pixels=0,
+                total_changed_area_percentage=0.0,
+                total_changed_area_sq_meters=None,
+                change_regions=[],
+                registration_diagnostics=diag_identical,
+                evidence_image_path=None,
+                change_heatmap_path=None,
+                processing_time_sec=round(elapsed, 4)
+            )
+
+        # Case 0B: NEAR DUPLICATE -> NO_SIGNIFICANT_CHANGE
+        if pair_diag.classification == PairClassification.NEAR_DUPLICATE:
+            elapsed = time.perf_counter() - start_time
+            diag_near = RegistrationDiagnostics(
+                method_applied="near_duplicate_check",
+                overlap_percentage=100.0,
+                overlap_bounds=None,
+                original_dims_before=(meta_b.width, meta_b.height),
+                original_dims_after=(meta_a.width, meta_a.height),
+                aligned_dims=(meta_b.width, meta_b.height),
+                resolution_before=meta_b.resolution,
+                resolution_after=meta_a.resolution,
+                crs_before=meta_b.crs,
+                crs_after=meta_a.crs,
+                registration_quality=RegistrationQuality.HIGH
+            )
+            return TemporalAnalysisResponse(
+                file_id_before=file_id_before,
+                file_id_after=file_id_after,
+                query=query,
+                status="NO_SIGNIFICANT_CHANGE",
+                change_detected=False,
+                reason="NEAR_DUPLICATE",
+                pair_validation=pair_diag,
+                statistics=TemporalStatistics(changed_pixels=0, change_percentage=0.0, changed_sq_meters=None),
+                summary="No significant physical or spectral land-cover changes detected between the two observation dates.",
+                dominant_change_type=None,
+                total_changed_area_pixels=0,
+                total_changed_area_percentage=0.0,
+                total_changed_area_sq_meters=None,
+                change_regions=[],
+                registration_diagnostics=diag_near,
+                evidence_image_path=None,
+                change_heatmap_path=None,
+                processing_time_sec=round(elapsed, 4)
+            )
+
+        # Case 0C: INCOMPATIBLE IMAGES -> INCOMPATIBLE_IMAGES
+        if pair_diag.classification == PairClassification.INCOMPATIBLE_IMAGES:
+            elapsed = time.perf_counter() - start_time
+            diag_incompat = RegistrationDiagnostics(
+                method_applied="input_pair_validation",
+                overlap_percentage=pair_diag.spatial_overlap_pct or 0.0,
+                overlap_bounds=None,
+                original_dims_before=(meta_b.width, meta_b.height),
+                original_dims_after=(meta_a.width, meta_a.height),
+                aligned_dims=(meta_b.width, meta_b.height),
+                resolution_before=meta_b.resolution,
+                resolution_after=meta_a.resolution,
+                crs_before=meta_b.crs,
+                crs_after=meta_a.crs,
+                registration_quality=RegistrationQuality.FAILED
+            )
+            reason_msg = pair_diag.reason or "The uploaded images appear to represent different scenes and cannot be reliably compared as a temporal pair."
+            return TemporalAnalysisResponse(
+                file_id_before=file_id_before,
+                file_id_after=file_id_after,
+                query=query,
+                status="INCOMPATIBLE_IMAGES",
+                change_detected=False,
+                reason=reason_msg,
+                pair_validation=pair_diag,
+                statistics=TemporalStatistics(changed_pixels=0, change_percentage=0.0, changed_sq_meters=None),
+                summary=reason_msg,
+                dominant_change_type=None,
+                total_changed_area_pixels=0,
+                total_changed_area_percentage=0.0,
+                total_changed_area_sq_meters=None,
+                change_regions=[],
+                registration_diagnostics=diag_incompat,
+                evidence_image_path=None,
+                change_heatmap_path=None,
+                processing_time_sec=round(elapsed, 4)
+            )
+
+        # ------------------------------------------------------------------
+        # STAGE 1: Multi-Tier Image Registration & Spatial Alignment
+        # ------------------------------------------------------------------
         aligned_b, aligned_a, diagnostics, valid_mask = ImageRegistrar.align_rasters(before_path, after_path)
 
         # Verify aligned array dimensions
@@ -63,12 +198,17 @@ class BiTemporalAnalysisEngine:
         # 2. Check for Disjoint / Non-Overlapping Images
         if diagnostics.registration_quality == RegistrationQuality.FAILED or diagnostics.overlap_percentage < (settings.REGISTRATION_MIN_OVERLAP_PCT * 100.0):
             elapsed = time.perf_counter() - start_time
+            msg = "The provided Before and After images do not overlap geographically. Cannot compute bi-temporal change analysis."
             return TemporalAnalysisResponse(
                 file_id_before=file_id_before,
                 file_id_after=file_id_after,
                 query=query,
-                status="NO_SPATIAL_OVERLAP",
-                summary="The provided Before and After images do not overlap geographically. Cannot compute bi-temporal change analysis.",
+                status="INCOMPATIBLE_IMAGES",
+                change_detected=False,
+                reason=msg,
+                pair_validation=pair_diag,
+                statistics=TemporalStatistics(changed_pixels=0, change_percentage=0.0, changed_sq_meters=None),
+                summary=msg,
                 dominant_change_type=None,
                 total_changed_area_pixels=0,
                 total_changed_area_percentage=0.0,
@@ -176,25 +316,30 @@ class BiTemporalAnalysisEngine:
 
         # 10. Handle NO SIGNIFICANT CHANGE
         if not filtered_regions:
-            # Still render clean side-by-side visualization
-            ev_path, hm_path = render_temporal_evidence(
-                bands_before=aligned_b,
-                bands_after=aligned_a,
-                magnitude_map=mag_map,
-                regions=[],
-                filename_prefix=f"temporal_{file_id_before}_{file_id_after}",
-                debug_mode=debug_mode
-            )
+            ev_path = None
+            hm_path = None
+            if debug_mode:
+                p_ev, p_hm = render_temporal_evidence(
+                    bands_before=aligned_b,
+                    bands_after=aligned_a,
+                    magnitude_map=mag_map,
+                    regions=[],
+                    filename_prefix=f"temporal_{file_id_before}_{file_id_after}",
+                    debug_mode=debug_mode
+                )
+                ev_path = self._to_rel_path(p_ev)
+                hm_path = self._to_rel_path(p_hm)
 
-            rel_ev_path = self._to_rel_path(ev_path)
-            rel_hm_path = self._to_rel_path(hm_path)
             elapsed = time.perf_counter() - start_time
-
             return TemporalAnalysisResponse(
                 file_id_before=file_id_before,
                 file_id_after=file_id_after,
                 query=query,
                 status="NO_SIGNIFICANT_CHANGE",
+                change_detected=False,
+                reason="NO_SIGNIFICANT_CHANGE",
+                pair_validation=pair_diag,
+                statistics=TemporalStatistics(changed_pixels=0, change_percentage=0.0, changed_sq_meters=None),
                 summary="No significant physical or spectral land-cover changes detected between the two observation dates.",
                 dominant_change_type=None,
                 total_changed_area_pixels=0,
@@ -202,8 +347,8 @@ class BiTemporalAnalysisEngine:
                 total_changed_area_sq_meters=None,
                 change_regions=[],
                 registration_diagnostics=diagnostics,
-                evidence_image_path=rel_ev_path,
-                change_heatmap_path=rel_hm_path,
+                evidence_image_path=ev_path,
+                change_heatmap_path=hm_path,
                 processing_time_sec=round(elapsed, 4)
             )
 
@@ -241,6 +386,14 @@ class BiTemporalAnalysisEngine:
             file_id_after=file_id_after,
             query=query,
             status="SUCCESS",
+            change_detected=True,
+            reason=None,
+            pair_validation=pair_diag,
+            statistics=TemporalStatistics(
+                changed_pixels=total_pixels,
+                change_percentage=total_pct,
+                changed_sq_meters=round(total_sq_m, 2) if total_sq_m else None
+            ),
             summary=summary,
             dominant_change_type=dominant_type,
             total_changed_area_pixels=total_pixels,

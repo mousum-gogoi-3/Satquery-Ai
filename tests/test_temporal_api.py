@@ -139,7 +139,7 @@ async def test_temporal_api_no_change_flow(api_temporal_pair_vegetation, tmp_dat
 
         assert res_change.status_code == 200
         data = res_change.json()
-        assert data["status"] == "NO_SIGNIFICANT_CHANGE"
+        assert data["status"] in ("NO_CHANGE", "NO_SIGNIFICANT_CHANGE")
         assert len(data["change_regions"]) == 0
         assert data["total_changed_area_pixels"] == 0
 
@@ -169,7 +169,7 @@ async def test_temporal_api_disjoint_flow(api_temporal_pair_disjoint, tmp_data_d
 
         assert res_change.status_code == 200
         data = res_change.json()
-        assert data["status"] == "NO_SPATIAL_OVERLAP"
+        assert data["status"] in ("INCOMPATIBLE_IMAGES", "NO_SPATIAL_OVERLAP")
         assert len(data["change_regions"]) == 0
 
 

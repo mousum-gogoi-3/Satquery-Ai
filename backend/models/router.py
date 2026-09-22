@@ -51,15 +51,30 @@ class SatQueryRouter:
         (r"\b(constructions?|excavations?|earthworks?|building\s+site)\b", "construction"),
     ]
 
-    # Change detection intent keywords
+    # Change detection intent keywords and temporal comparison patterns
     CHANGE_PATTERNS: List[str] = [
-        r"\bwhat\s+(has\s+)?changed\b",
-        r"\bchanges?\s+between\b",
-        r"\bwhat\s+changed\s+between\b",
-        r"\bcompare(\s+the|\s+these)?\s+(images?|rasters?|scenes?|observations?)\b",
-        r"\bcompare\b",
+        # Grammatical forms of what changed / differences / progressive changing
+        r"\bwhat\s+(had|has|have|did|was|is)?\s*(been\s+)?(changed|changing|different|altered)\b",
+        r"\bwhat\s+changed\b",
+        r"\bwhat\s+had\s+changed\b",
+        r"\bwhat\s+(was|is)\s+changing\b",
+        r"\bchang(e|ed|ing|es)\s+(between|in|over\s+time|across)\b",
+        r"\bchang(ed|ing)\s+in\s+(these|the|both)\s+images\b",
+        r"\bdifferences?\s+(between|in|over\s+time)\b",
+        r"\bwhat\s+(is|are|were)\s+(the\s+)?(differences?|changes?)\b",
+        r"\bwhat\s+(is|are)\s+different\b",
+        r"\b(did|has|had)\s+(anything|something)\s+change(d)?(\s+over\s+time)?\b",
+        r"\bhow\s+(did|has|had)\s+(this|the|it|our)?\s*(scene|area|region|landscape|land|cover|image|imagery)?\s*change(d)?\b",
+        # Comparison phrasing
+        r"\bcompare(\s+the|\s+these|\s+both)?(\s+two)?\s*(images?|rasters?|scenes?|observations?|before\s+and\s+after)?\b",
+        r"\bcomparison\s+(between|of)\b",
+        # Temporal phrases
+        r"\bover\s+time\b",
+        r"\btemporal(\s+change)?\b",
         r"\bbefore\s+and\s+after\b",
-        r"\btemporal\s+change\b",
+        r"\bbetween\s+(these|the|both|the\s+two|these\s+two)\s+(images?|rasters?|scenes?|dates?|observations?)\b",
+        r"\bbetween\s+before\s+and\s+after\b",
+        # Physical & environmental change domains
         r"\bvegetation\s+(loss|decrease|gain|increase)\b",
         r"\bwhere\s+did\s+vegetation\s+(loss|decrease|gain|increase)\b",
         r"\b(deforest|deforestation)\b",
@@ -72,7 +87,6 @@ class SatQueryRouter:
         r"\b(what|which)\s+areas?\s+changed\b",
         r"\bshow(\s+me)?\s+(the\s+)?areas?\s+that\s+changed\b",
         r"\bshow(\s+me)?\s+(the\s+)?differences?\b",
-        r"\bdifferences?\s+between\b",
     ]
 
     # Counting intent indicators
@@ -112,6 +126,54 @@ class SatQueryRouter:
     ]
 
     @classmethod
+    def normalize_query(cls, query: str) -> str:
+        """
+        Normalizes query text for reliable intent classification:
+          - lowercases
+          - trims leading/trailing whitespace
+          - collapses repeated whitespace
+          - normalizes 'overtime' -> 'over time'
+        """
+        if not query:
+            return ""
+        q = query.lower().strip()
+        q = re.sub(r"\s+", " ", q)
+        q = re.sub(r"\bovertime\b", "over time", q)
+        return q
+
+    @classmethod
+    def is_temporal_change_query(cls, query: str, has_second_image: bool = False) -> bool:
+        """
+        Robustly determines if a query expresses temporal change or comparison intent.
+        
+        Evaluates normalized query against temporal change regex patterns.
+        If has_second_image is True, also catches general comparison/difference terms.
+        """
+        if not query:
+            return False
+        q = cls.normalize_query(query)
+
+        # Direct pattern match
+        if any(re.search(p, q) for p in cls.CHANGE_PATTERNS):
+            return True
+
+        # When two images are present, general comparison keywords also route to change analysis
+        if has_second_image:
+            comparison_keywords = [
+                r"\bchange(d|s|ing)?\b",
+                r"\bdiffer(ence|ences|ent)?\b",
+                r"\bcompare(d|s|ing|ison)?\b",
+                r"\bversus\b",
+                r"\bvs\.?\b",
+                r"\bover\s+time\b",
+                r"\bbetween\b",
+            ]
+            if any(re.search(kw, q) for kw in comparison_keywords):
+                return True
+
+        return False
+
+    @classmethod
     def detect_target_image_index(cls, query: str) -> int:
         """
         Determines whether a query is addressing Image 1 (Before) or Image 2 (After).
@@ -144,19 +206,36 @@ class SatQueryRouter:
         Classifies user query and extracts target concept.
         
         Routing Priority:
-          1. Explicit Image Understanding (Overrides all else for 'explain this image', 'describe the first image', etc.)
-          2. Temporal Change Analysis (If temporal intent, or 2 images + comparison/change query)
+          1. Temporal Change Analysis (If temporal intent, or 2 images + comparison/change query)
+             NOTE: Overrides generic scene understanding when temporal comparison intent is present.
+          2. Explicit Image Understanding (For non-temporal queries like 'explain this image', 'describe the scene')
           3. Counting Questions
           4. Spatial Grounding (Only if explicit location intent + recognizable target concept)
           5. General Image Understanding (DEFAULT fallback)
         """
-        q = query.lower().strip()
-        target_image_idx = cls.detect_target_image_index(q)
+        q_normalized = cls.normalize_query(query)
+        target_image_idx = cls.detect_target_image_index(q_normalized)
 
-        # Step 1: Check for explicit general understanding intent first!
-        # If user asks "Explain this image", "Describe the first image", etc., it MUST go to image understanding.
+        # Step 1: Temporal Change Analysis
+        # If the user expresses temporal change or comparison intent, it MUST route to temporal change.
+        if cls.is_temporal_change_query(query, has_second_image=has_second_image):
+            target = cls.extract_target_concept(q_normalized)
+            logger.info(
+                f"[SatQuery Router] Query: '{query}' | Type: temporal_change | Target: {target} | "
+                f"Model: BiTemporalAnalysisEngine"
+            )
+            return QueryRoutingResult(
+                query_type=QueryType.TEMPORAL_CHANGE,
+                target_concept=target,
+                original_query=query,
+                confidence=0.96,
+                target_image_index=0
+            )
+
+        # Step 2: Explicit general understanding intent (only for NON-temporal queries)
+        # If user asks "Explain this image", "Describe the first image", etc., it routes to image understanding.
         for pattern in cls.EXPLICIT_UNDERSTANDING_PATTERNS:
-            if re.search(pattern, q):
+            if re.search(pattern, q_normalized):
                 logger.info(
                     f"[SatQuery Router] Query: '{query}' | Type: image_understanding (Explicit explanation pattern) | "
                     f"Target Image: {target_image_idx} | Model: CaptionEngine / VQAEngine"
@@ -169,28 +248,12 @@ class SatQueryRouter:
                     target_image_index=target_image_idx
                 )
 
-        # Step 2: Temporal Change Analysis
-        # Triggered if query matches temporal patterns OR (two images present AND change/difference query)
-        is_change = any(re.search(p, q) for p in cls.CHANGE_PATTERNS) or (
-            has_second_image and any(w in q for w in ["change", "diff", "differ", "compare", "versus", "vs"])
-        )
-        if is_change:
-            target = cls.extract_target_concept(q)
-            logger.info(f"[SatQuery Router] Query: '{query}' | Type: temporal_change | Target: {target} | Model: BiTemporalAnalysisEngine")
-            return QueryRoutingResult(
-                query_type=QueryType.TEMPORAL_CHANGE,
-                target_concept=target,
-                original_query=query,
-                confidence=0.95,
-                target_image_index=0
-            )
-
         # Step 3: Counting Questions
-        is_count = any(re.search(p, q) for p in cls.COUNT_PATTERNS)
+        is_count = any(re.search(p, q_normalized) for p in cls.COUNT_PATTERNS)
         if is_count:
-            target = cls.extract_target_concept(q)
+            target = cls.extract_target_concept(q_normalized)
             if not target:
-                cleaned = re.sub(r"how\s+many\s+", "", q).strip()
+                cleaned = re.sub(r"how\s+many\s+", "", q_normalized).strip()
                 words = cleaned.split()
                 if words:
                     target = words[0].rstrip("s?,.")
@@ -210,8 +273,8 @@ class SatQueryRouter:
 
         # Step 4: Spatial Grounding
         # Must have BOTH explicit location intent (e.g. "where is", "locate", "show me") AND a target concept
-        has_grounding_intent = any(re.search(p, q) for p in cls.GROUNDING_INDICATORS)
-        target = cls.extract_target_concept(q)
+        has_grounding_intent = any(re.search(p, q_normalized) for p in cls.GROUNDING_INDICATORS)
+        target = cls.extract_target_concept(q_normalized)
 
         if has_grounding_intent and target:
             logger.info(

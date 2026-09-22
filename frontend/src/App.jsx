@@ -16,6 +16,7 @@ export default function App() {
   const [backendConnected, setBackendConnected] = useState(false);
   const [imageBefore, setImageBefore] = useState(null);
   const [imageAfter, setImageAfter] = useState(null);
+  const [activeSlot, setActiveSlot] = useState('before');
   const [isUploadingBefore, setIsUploadingBefore] = useState(false);
   const [isUploadingAfter, setIsUploadingAfter] = useState(false);
   const [uploadError, setUploadError] = useState(null);
@@ -54,6 +55,7 @@ export default function App() {
     try {
       const uploadResult = await uploadImage(file);
       setImageBefore(uploadResult);
+      setActiveSlot('before');
       setMessages((prev) => [
         ...prev,
         {
@@ -77,6 +79,7 @@ export default function App() {
     try {
       const uploadResult = await uploadImage(file);
       setImageAfter(uploadResult);
+      setActiveSlot('after');
       setMessages((prev) => [
         ...prev,
         {
@@ -95,10 +98,12 @@ export default function App() {
   // Remove individual slot images
   const handleRemoveBefore = () => {
     setImageBefore(null);
+    if (imageAfter) setActiveSlot('after');
   };
 
   const handleRemoveAfter = () => {
     setImageAfter(null);
+    if (imageBefore) setActiveSlot('before');
   };
 
   // Reset entire session
@@ -140,12 +145,12 @@ export default function App() {
         const assistantMessage = {
           id: Date.now() + 1,
           role: 'assistant',
-          answer: data.summary || 'Bi-temporal change analysis complete.',
+          answer: data.summary || data.reason || 'Bi-temporal change analysis complete.',
           analysisType: 'temporal_change',
           evidenceImagePath: data.evidence_image_path || null,
           changeHeatmapPath: data.change_heatmap_path || null,
           evidenceRegions: data.change_regions || [],
-          confidence: data.dominant_change_type ? 0.95 : 0.85,
+          confidence: data.dominant_change_type ? 0.95 : (data.change_detected ? 0.85 : 1.0),
           processingTime: data.processing_time_sec !== undefined ? data.processing_time_sec : null,
         };
         setMessages((prev) => [...prev, assistantMessage]);
@@ -160,27 +165,21 @@ export default function App() {
         const specifiesBefore = /\b(before|first|image\s*1|image\s*a)\b/.test(qLower);
         const specifiesAfter = /\b(after|second|image\s*2|image\s*b)\b/.test(qLower);
 
-        let targetFileId = null;
+        let targetImage = null;
         if (specifiesBefore && !specifiesAfter) {
-          targetFileId = imageBefore.file_id;
+          targetImage = imageBefore;
         } else if (specifiesAfter && !specifiesBefore) {
-          targetFileId = imageAfter.file_id;
+          targetImage = imageAfter;
         } else {
-          // Cannot determine which image the user means
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: Date.now() + 1,
-              role: 'assistant',
-              answer: "You have two images loaded (Before and After). Please specify which image you'd like to inspect (e.g. 'in the before image' or 'in the second image'), or ask a change detection question (e.g. 'What changed?').",
-            }
-          ]);
-          return;
+          // Default to the user's active/selected image slot
+          targetImage = (activeSlot === 'after' && imageAfter) ? imageAfter : (imageBefore || imageAfter);
         }
 
-        const data = await queryGrounded(targetFileId, queryText);
+        const secondFileId = (targetImage === imageBefore) ? imageAfter?.file_id : imageBefore?.file_id;
+        const data = await queryGrounded(targetImage.file_id, queryText, secondFileId);
         const answerText = data.answer || data.summary || 'Analysis complete.';
         const evidencePath = data.evidence_image_path || null;
+        const heatmapPath = data.model_info?.change_heatmap_path || null;
         const regions = data.evidence_regions || [];
         const confidence = data.overall_confidence !== undefined ? data.overall_confidence : data.confidence;
         const processingTime = data.processing_time_sec !== undefined ? data.processing_time_sec : data.processing_time;
@@ -191,6 +190,7 @@ export default function App() {
           answer: answerText,
           analysisType: data.analysis_type || 'grounding',
           evidenceImagePath: evidencePath,
+          changeHeatmapPath: heatmapPath,
           evidenceRegions: regions,
           confidence: confidence,
           processingTime: processingTime,
@@ -254,6 +254,8 @@ export default function App() {
             <ImageUploader 
               imageBefore={imageBefore}
               imageAfter={imageAfter}
+              activeSlot={activeSlot}
+              onSelectSlot={(slot) => setActiveSlot(slot)}
               onUploadBefore={handleUploadBefore}
               onUploadAfter={handleUploadAfter}
               onRemoveBefore={handleRemoveBefore}

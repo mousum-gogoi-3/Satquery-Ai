@@ -6,6 +6,7 @@ from fastapi.responses import FileResponse
 from backend.config import settings
 from backend.utils.logger import get_logger
 from backend.remote_sensing.validator import FileValidator
+from backend.remote_sensing.satellite_validator import SatelliteImageValidator
 from backend.remote_sensing.raster import RasterReader
 from backend.remote_sensing.bands import BandManager
 from backend.remote_sensing.preprocessing import Preprocessor
@@ -94,7 +95,7 @@ async def upload_raster(file: UploadFile = File(...)):
 
     # Process and validate file with cleanup on failure
     try:
-        # Validate file
+        # 1. File security & basic readability validation
         validation = FileValidator.validate(file_path)
         if not validation.valid:
             if file_path.exists():
@@ -105,6 +106,31 @@ async def upload_raster(file: UploadFile = File(...)):
                     "message": "File validation failed",
                     "errors": validation.errors,
                     "warnings": validation.warnings,
+                }
+            )
+
+        # 2. Authoritative Satellite / Remote-Sensing Suitability Validation
+        sat_validation = SatelliteImageValidator.validate_satellite_raster(file_path)
+        if not sat_validation.valid:
+            if file_path.exists():
+                file_path.unlink()
+            logger.warning(
+                f"Rejected upload '{filename}' ({file_id}): {sat_validation.reason}"
+            )
+            classification_str = (
+                sat_validation.classification.value
+                if hasattr(sat_validation.classification, "value")
+                else str(sat_validation.classification)
+            )
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail={
+                    "valid": False,
+                    "error_code": sat_validation.error_code or "INVALID_SATELLITE_IMAGE",
+                    "classification": classification_str,
+                    "message": sat_validation.message or "Invalid image. SatQuery AI only accepts satellite or remote-sensing imagery.",
+                    "reason": sat_validation.reason,
+                    "diagnostics": sat_validation.model_dump(),
                 }
             )
 
@@ -129,6 +155,7 @@ async def upload_raster(file: UploadFile = File(...)):
             filename=filename,
             file_path=str(file_path),
             validation=validation,
+            satellite_validation=sat_validation,
             metadata=metadata,
             bands=bands,
             thumbnail_url=thumbnail_url,

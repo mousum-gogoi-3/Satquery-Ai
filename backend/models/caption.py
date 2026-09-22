@@ -55,30 +55,63 @@ class CaptionEngine(BaseVLMEngine):
         if self.use_mock:
             return self._mock_generate_caption(file_path, detail_level)
 
+        meta = RasterReader.extract_metadata(file_path)
+        imagery_type = BandManager.get_imagery_type(meta)
+        image = load_raster_as_pil_image(file_path)
+
+        file_id_hint = file_path.stem.split("_")[0] if "_" in file_path.stem else file_path.stem
+        logger.info(
+            f"Caption request received for file_id={file_id_hint} ({file_path.name}) | "
+            f"shape=({meta.height}, {meta.width}) | bands={meta.band_count} ({imagery_type})"
+        )
+
+        if meta.band_count == 1 or imagery_type == "GRAYSCALE":
+            sensor_note = (
+                "Important: This is a single-band panchromatic / grayscale remote-sensing raster. "
+                "Do NOT invent or hallucinate RGB colors (such as green vegetation, blue water, or red roofs). "
+                "Describe visible spatial patterns, intensity variations (bright vs dark regions), textures, shapes, and structural features."
+            )
+        elif imagery_type == "SAR":
+            sensor_note = (
+                "Important: This is a Synthetic Aperture Radar (SAR) raster. "
+                "Describe features in terms of radar backscatter intensity (bright double-bounce scatterers, smooth dark specular water surfaces)."
+            )
+        else:
+            sensor_note = "Describe observable visual features and land-cover patterns accurately."
+
+        crs_note = f"\n- CRS: {meta.crs}" if meta.crs else ""
+        meta_context = f"\nImage metadata:\n- Dimensions: {meta.width} x {meta.height} px\n- Spectral bands: {meta.band_count} ({imagery_type}){crs_note}\n"
+
+        lvl = (detail_level or "detailed").lower().strip()
+        if lvl == "brief":
+            prompt = (
+                "You are analyzing a satellite/remote-sensing image.\n\n"
+                f"{sensor_note}\n{meta_context}\n"
+                "Provide a brief, concise caption (1 to 2 sentences maximum) describing "
+                "the primary visible land-cover and structural features in this satellite image."
+            )
+            max_tokens = 64
+        elif lvl == "normal":
+            prompt = (
+                "You are analyzing a satellite/remote-sensing image.\n\n"
+                f"{sensor_note}\n{meta_context}\n"
+                "Provide a clear, balanced description (3 to 5 sentences) of this satellite scene. "
+                "Describe key observations including land cover, structures, roads, vegetation, water, or terrain."
+            )
+            max_tokens = 128
+        else:  # "detailed" or fallback
+            prompt = (
+                "You are analyzing a satellite/remote-sensing image.\n\n"
+                "Look carefully at the provided image before describing.\n"
+                f"{sensor_note}\n{meta_context}\n"
+                "Provide a comprehensive, detailed description of this satellite scene. "
+                "Thoroughly describe visible land-cover patterns, structures, roads, vegetation patches, "
+                "water bodies, bare soil, agricultural patterns, and surface textures without inventing unverified facts. "
+                "Finish every sentence and provide a complete description."
+            )
+            max_tokens = min(settings.MAX_VLM_TOKENS, 512)
+
         try:
-            image = load_raster_as_pil_image(file_path)
-
-            lvl = (detail_level or "detailed").lower().strip()
-            if lvl == "brief":
-                prompt = (
-                    "Provide a brief, concise caption (1 to 2 sentences maximum) describing "
-                    "the primary features of this satellite image. Do not add details."
-                )
-                max_tokens = 64
-            elif lvl == "normal":
-                prompt = (
-                    "Provide a clear, balanced description (3 to 5 sentences) of this satellite scene. "
-                    "Describe key observations including land cover, vegetation, water, buildings, roads, or agriculture."
-                )
-                max_tokens = 128
-            else:  # "detailed" or fallback
-                prompt = (
-                    "Provide a comprehensive, detailed description of this satellite scene. "
-                    "Thoroughly describe visible land-cover features including vegetation, water bodies, "
-                    "buildings, roads, agricultural fields, urban areas, bare land, and terrain patterns."
-                )
-                max_tokens = min(settings.MAX_VLM_TOKENS, 256)
-
             caption = QwenModelManager.run_inference(
                 image=image,
                 prompt=prompt,
@@ -96,8 +129,8 @@ class CaptionEngine(BaseVLMEngine):
 
             return caption, inferred_concepts
         except Exception as e:
-            logger.error(f"Error during real Qwen caption inference: {e}. Falling back to mock response.")
-            return self._mock_generate_caption(file_path, detail_level)
+            logger.error(f"Error during real Qwen caption inference on {file_path.name}: {e}")
+            raise RuntimeError(f"Visual caption inference failed: {e}") from e
 
     def _mock_generate_caption(
         self,

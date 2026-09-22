@@ -18,6 +18,8 @@ from backend.models.grounding import GroundingEngine
 from backend.models.temporal_engine import BiTemporalAnalysisEngine
 from backend.models.router import SatQueryRouter, QueryType
 from backend.remote_sensing.raster import RasterReader
+from backend.remote_sensing.satellite_validator import SatelliteImageValidator
+from backend.remote_sensing.pair_validator import TemporalPairValidator, PairClassification
 from backend.api.schemas import ImageDimensions
 from backend.utils.rendering import render_visual_evidence
 
@@ -34,18 +36,48 @@ temporal_engine = BiTemporalAnalysisEngine()
 
 def _resolve_uploaded_file(file_id: str) -> Path:
     """Helper to locate uploaded raster file by file_id in UPLOAD_DIR."""
-    if "\x00" in file_id or "%00" in file_id or ".." in file_id:
+    if not file_id or not str(file_id).strip() or "\x00" in file_id or "%00" in file_id or ".." in file_id:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid file_id parameter"
         )
-    matching_files = list(settings.UPLOAD_DIR.glob(f"{file_id}_*"))
+    fid = str(file_id).strip()
+    matching_files = list(settings.UPLOAD_DIR.glob(f"{fid}_*"))
+    if not matching_files:
+        matching_files = list(settings.UPLOAD_DIR.glob(f"{fid}.*"))
+    if not matching_files and (settings.UPLOAD_DIR / fid).is_file():
+        matching_files = [settings.UPLOAD_DIR / fid]
     if not matching_files:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Raster file with ID '{file_id}' not found"
         )
-    return matching_files[0]
+    file_path = matching_files[0]
+
+    # Enforce authoritative satellite validation before allowing any AI analysis
+    sat_validation = SatelliteImageValidator.validate_satellite_raster(file_path)
+    if not sat_validation.valid:
+        logger.warning(
+            f"Analysis endpoint blocked invalid raster '{file_path.name}' (file_id='{file_id}'): {sat_validation.reason}"
+        )
+        classification_str = (
+            sat_validation.classification.value
+            if hasattr(sat_validation.classification, "value")
+            else str(sat_validation.classification)
+        )
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail={
+                "valid": False,
+                "error_code": sat_validation.error_code or "INVALID_SATELLITE_IMAGE",
+                "classification": classification_str,
+                "message": sat_validation.message or "Invalid image. SatQuery AI only accepts satellite or remote-sensing imagery.",
+                "reason": sat_validation.reason,
+                "diagnostics": sat_validation.model_dump(),
+            }
+        )
+
+    return file_path
 
 
 @router.post("/vqa", response_model=VQAResponse, status_code=status.HTTP_200_OK)
@@ -61,6 +93,46 @@ async def perform_vqa(request: VQARequest):
 
     file_path = _resolve_uploaded_file(request.file_id)
 
+    # Critical Architecture Guard: If two images are provided and are identical, return immediately
+    if request.file_id_after and str(request.file_id_after).strip():
+        file_path_after = _resolve_uploaded_file(request.file_id_after)
+        pair_diag = TemporalPairValidator.validate_pair(file_path, file_path_after)
+        if pair_diag.classification in (PairClassification.IDENTICAL_IMAGES, PairClassification.NEAR_DUPLICATE):
+            logger.info(
+                f"VQA endpoint intercepted query on identical pair: '{request.question}'"
+            )
+            return VQAResponse(
+                file_id=request.file_id,
+                question=request.question,
+                answer="The uploaded Before and After images are identical. No temporal changes detected.",
+                confidence=1.0,
+                processing_time_sec=0.0,
+                model_name="identical_pair_guard",
+                image_used=False,
+            )
+
+    # Guard against single-image VQA hallucinating temporal changes
+    if SatQueryRouter.is_temporal_change_query(request.question):
+        logger.info(
+            f"VQA endpoint blocked temporal comparison query on single image: '{request.question}'"
+        )
+        return VQAResponse(
+            file_id=request.file_id,
+            question=request.question,
+            answer=(
+                "Temporal change comparison requires two satellite observations (Before and After images). "
+                "To analyze changes over time, please upload both images and run Change Analysis."
+            ),
+            confidence=1.0,
+            processing_time_sec=0.0,
+            model_name="routing_guard",
+            image_used=False,
+        )
+
+    logger.info(
+        f"VQA endpoint called | file_id='{request.file_id}' | question='{request.question}' | resolved_file='{file_path.name}'"
+    )
+
     start_time = time.perf_counter()
     try:
         answer, confidence = vqa_engine.answer_question(file_path, request.question)
@@ -73,7 +145,7 @@ async def perform_vqa(request: VQARequest):
         logger.error(f"VQA execution failed for file_id={request.file_id}: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="An error occurred during VLM Visual Question Answering analysis."
+            detail=f"Visual Question Answering analysis failed: {e}"
         )
 
     elapsed = time.perf_counter() - start_time
@@ -86,6 +158,7 @@ async def perform_vqa(request: VQARequest):
         confidence=confidence,
         processing_time_sec=round(elapsed, 4),
         model_name=vqa_engine.model_name,
+        image_used=True,
     )
 
 
@@ -142,8 +215,49 @@ async def perform_grounded_analysis(request: GroundedAnalysisRequest):
     file_path = _resolve_uploaded_file(request.file_id)
     start_time = time.perf_counter()
 
-    # Route query
-    routing = SatQueryRouter.classify_query(request.query)
+    second_id = request.file_id_after or request.second_file_id
+    has_second_image = bool(second_id and str(second_id).strip())
+
+    # ------------------------------------------------------------------
+    # CRITICAL ARCHITECTURAL GUARD:
+    # When two images are present, check if Before and After are identical
+    # BEFORE query-intent routing.
+    # ------------------------------------------------------------------
+    if has_second_image:
+        file_path_after = _resolve_uploaded_file(second_id)
+        pair_diag = TemporalPairValidator.validate_pair(file_path, file_path_after)
+        if pair_diag.classification in (PairClassification.IDENTICAL_IMAGES, PairClassification.NEAR_DUPLICATE):
+            logger.info(
+                f"[SatQuery Architecture Guard] Before ({request.file_id}) and After ({second_id}) are IDENTICAL. "
+                f"Returning identical-image result immediately without downstream VQA/grounding model invocation."
+            )
+            meta = RasterReader.extract_metadata(file_path)
+            img_dims = ImageDimensions(width=meta.width, height=meta.height)
+            elapsed = time.perf_counter() - start_time
+            return GroundedAnalysisResponse(
+                file_id=request.file_id,
+                query=request.query,
+                answer="The uploaded Before and After images are identical. No temporal changes detected.",
+                analysis_type=QueryType.TEMPORAL_CHANGE.value,
+                target_concept=None,
+                count=0,
+                evidence_regions=[],
+                overall_confidence=1.0,
+                evidence_image_path=None,
+                source_image_dims=img_dims,
+                model_info={
+                    "router_decision": "identical_pair_guard",
+                    "model_name": "BiTemporalAnalysisEngine",
+                    "change_detected": False,
+                    "dominant_change_type": None,
+                    "status": "NO_CHANGE",
+                    "pair_classification": pair_diag.classification.value,
+                },
+                processing_time_sec=round(elapsed, 4)
+            )
+
+    # Route query with awareness of whether two images are available
+    routing = SatQueryRouter.classify_query(request.query, has_second_image=has_second_image)
     query_type = routing.query_type
     target_concept = routing.target_concept
 
@@ -155,42 +269,35 @@ async def perform_grounded_analysis(request: GroundedAnalysisRequest):
         # CASE 1: GENERAL IMAGE UNDERSTANDING (Captioning / VQA)
         # -------------------------------------------------------------
         if query_type == QueryType.IMAGE_UNDERSTANDING:
-            logger.info(f"[SatQuery Router] Query: '{request.query}' | Type: image_understanding | Model: CaptionEngine / VQAEngine")
-            
-            q_lower = request.query.lower().strip()
-            is_open_scene_query = any(w in q_lower for w in [
-                "explain", "describe", "what is in", "what does this", "overview", 
-                "summary", "what can you see", "analyze", "tell me about"
-            ])
-
-            if is_open_scene_query:
-                caption, concepts = caption_engine.generate_caption(file_path, detail_level="detailed")
-                answer = caption
-                conf = 0.95
-                model_name = caption_engine.model_name
+            # Defensive guard: never allow temporal comparison query to run scene-level VQA
+            if SatQueryRouter.is_temporal_change_query(request.query, has_second_image=has_second_image):
+                query_type = QueryType.TEMPORAL_CHANGE
             else:
+                logger.info(f"[SatQuery Router] Query: '{request.query}' | Type: image_understanding | Model: VQAEngine")
+                
                 answer, conf = vqa_engine.answer_question(file_path, request.query)
                 model_name = vqa_engine.model_name
 
-            elapsed = time.perf_counter() - start_time
-            return GroundedAnalysisResponse(
-                file_id=request.file_id,
-                query=request.query,
-                answer=answer,
-                analysis_type=QueryType.IMAGE_UNDERSTANDING.value,
-                target_concept=None,
-                count=None,
-                evidence_regions=[],
-                overall_confidence=conf,
-                evidence_image_path=None,  # No evidence image for general descriptions
-                source_image_dims=img_dims,
-                model_info={
-                    "router_decision": "image_understanding",
-                    "model_name": model_name,
-                    "mode": "scene_level_vlm"
-                },
-                processing_time_sec=round(elapsed, 4)
-            )
+                elapsed = time.perf_counter() - start_time
+                return GroundedAnalysisResponse(
+                    file_id=request.file_id,
+                    query=request.query,
+                    answer=answer,
+                    analysis_type=QueryType.IMAGE_UNDERSTANDING.value,
+                    target_concept=None,
+                    count=None,
+                    evidence_regions=[],
+                    overall_confidence=conf,
+                    evidence_image_path=None,  # No evidence image for general descriptions
+                    source_image_dims=img_dims,
+                    model_info={
+                        "router_decision": "image_understanding",
+                        "model_name": model_name,
+                        "mode": "scene_level_vlm",
+                        "image_used": True,
+                    },
+                    processing_time_sec=round(elapsed, 4)
+                )
 
         # -------------------------------------------------------------
         # CASE 2: COUNTING QUESTIONS
@@ -256,6 +363,42 @@ async def perform_grounded_analysis(request: GroundedAnalysisRequest):
         # -------------------------------------------------------------
         elif query_type == QueryType.TEMPORAL_CHANGE:
             logger.info(f"[SatQuery Router] Query: '{request.query}' | Type: temporal_change | Model: BiTemporalAnalysisEngine")
+
+            if has_second_image:
+                file_path_after = _resolve_uploaded_file(second_id)
+                temp_resp = temporal_engine.analyze_change(
+                    before_path=file_path,
+                    after_path=file_path_after,
+                    file_id_before=request.file_id,
+                    file_id_after=second_id,
+                    query=request.query,
+                    confidence_threshold=request.confidence_threshold,
+                    debug_mode=request.debug_mode,
+                )
+                elapsed = time.perf_counter() - start_time
+                return GroundedAnalysisResponse(
+                    file_id=request.file_id,
+                    query=request.query,
+                    answer=temp_resp.summary or "Bi-temporal change analysis complete.",
+                    analysis_type=QueryType.TEMPORAL_CHANGE.value,
+                    target_concept=target_concept,
+                    count=len(temp_resp.change_regions),
+                    evidence_regions=temp_resp.change_regions,
+                    overall_confidence=1.0 if not temp_resp.change_detected else 0.95,
+                    evidence_image_path=temp_resp.evidence_image_path,
+                    source_image_dims=img_dims,
+                    model_info={
+                        "router_decision": "temporal_change",
+                        "model_name": "BiTemporalAnalysisEngine",
+                        "change_detected": temp_resp.change_detected,
+                        "dominant_change_type": temp_resp.dominant_change_type,
+                        "status": temp_resp.status,
+                        "change_heatmap_path": temp_resp.change_heatmap_path,
+                    },
+                    processing_time_sec=round(elapsed, 4)
+                )
+
+            # Single image provided: guide the user without hallucinating
             answer = (
                 "Temporal change detection requires two satellite observations (before and after images). "
                 "To analyze changes like vegetation loss, water expansion, or new construction, please provide both temporal images."

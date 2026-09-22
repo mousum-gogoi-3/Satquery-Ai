@@ -298,5 +298,8 @@ class ImageRegistrar:
         if p_max > p_min:
             norm = np.clip((arr - p_min) / (p_max - p_min) * 255.0, 0.0, 255.0).astype(np.uint8)
         else:
-            norm = np.zeros_like(arr, dtype=np.uint8)
+            if 0.0 <= float(arr.max()) <= 255.0 and float(arr.min()) >= 0.0:
+                norm = np.clip(arr, 0.0, 255.0).astype(np.uint8)
+            else:
+                norm = np.zeros_like(arr, dtype=np.uint8)
         return norm

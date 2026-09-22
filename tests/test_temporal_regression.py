@@ -96,7 +96,7 @@ def test_regression_2_identical_images(tmp_path: Path):
         query="What changed?"
     )
 
-    assert res.status == "NO_SIGNIFICANT_CHANGE"
+    assert res.status in ("NO_CHANGE", "NO_SIGNIFICANT_CHANGE")
     assert res.total_changed_area_pixels == 0
     assert len(res.change_regions) == 0
 

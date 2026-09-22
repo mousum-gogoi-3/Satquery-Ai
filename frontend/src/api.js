@@ -80,17 +80,21 @@ export async function uploadImage(file) {
  * @param {string} fileId - The backend file_id of the uploaded raster
  * @param {string} query - The natural-language query/question
  */
-export async function queryGrounded(fileId, query) {
+export async function queryGrounded(fileId, query, fileIdAfter = null) {
   try {
+    const payload = {
+      file_id: fileId,
+      query: query.trim(),
+    };
+    if (fileIdAfter) {
+      payload.file_id_after = fileIdAfter;
+    }
     const res = await fetch(`${API_BASE_URL}/api/v1/analysis/grounded`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        file_id: fileId,
-        query: query.trim(),
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
@@ -194,27 +198,44 @@ export async function queryTemporalChange(fileIdBefore, fileIdAfter, query = 'Wh
 }
 
 /**
- * Minimal intent detector to check if a query indicates bi-temporal change/comparison.
- * Aligns with backend router change patterns without duplicating complex logic.
+ * Robust intent detector to check if a query indicates bi-temporal change/comparison.
+ * Normalizes queries and matches against comprehensive temporal patterns.
  * @param {string} query - The natural language query
  * @returns {boolean}
  */
 export function isTemporalChangeQuery(query) {
   if (!query) return false;
-  const q = query.trim();
+  let q = query.toLowerCase().trim();
+  q = q.replace(/\s+/g, ' ');
+  q = q.replace(/\bovertime\b/gi, 'over time');
+
   const patterns = [
-    /\bwhat\s+(has\s+)?changed\b/i,
-    /\bchanges?(\s+between)?\b/i,
-    /\bcompare\b/i,
+    /\bwhat\s+(had|has|have|did|was|is)?\s*(been\s+)?(changed|changing|different|altered)\b/i,
+    /\bwhat\s+changed\b/i,
+    /\bwhat\s+had\s+changed\b/i,
+    /\bwhat\s+(was|is)\s+changing\b/i,
+    /\bchang(e|ed|ing|es)\s+(between|in|over\s+time|across)\b/i,
+    /\bchang(ed|ing)\s+in\s+(these|the|both)\s+images\b/i,
+    /\bdifferences?\s+(between|in|over\s+time)\b/i,
+    /\bwhat\s+(is|are|were)\s+(the\s+)?(differences?|changes?)\b/i,
+    /\bwhat\s+(is|are)\s+different\b/i,
+    /\b(did|has|had)\s+(anything|something)\s+change(d)?(\s+over\s+time)?\b/i,
+    /\bhow\s+(did|has|had)\s+(this|the|it|our)?\s*(scene|area|region|landscape|land|cover|image|imagery)?\s*change(d)?\b/i,
+    /\bcompare(\s+the|\s+these|\s+both)?(\s+two)?\s*(images?|rasters?|scenes?|observations?|before\s+and\s+after)?\b/i,
+    /\bcomparison\s+(between|of)\b/i,
+    /\bover\s+time\b/i,
+    /\btemporal(\s+change)?\b/i,
     /\bbefore\s+and\s+after\b/i,
-    /\btemporal\b/i,
+    /\bbetween\s+(these|the|both|the\s+two|these\s+two)\s+(images?|rasters?|scenes?|dates?|observations?)\b/i,
+    /\bbetween\s+before\s+and\s+after\b/i,
     /\b(vegetation|water)\s+(loss|decrease|gain|increase|expansion|reduction|shrink)\b/i,
     /\bwhere\s+did\s+(vegetation|water|construction|change)\b/i,
     /\b(deforest|deforestation|flooding)\b/i,
-    /\bnew\s+(buildings?|constructions?|structures?|roads?)\b/i,
+    /\b(where\s+are\s+the\s+)?new\s+(buildings?|constructions?|structures?|roads?)\b/i,
     /\b(construction|change)\s+occur(red)?\b/i,
-    /\bdifferences?(\s+between)?\b/i,
+    /\b(what|which)\s+areas?\s+changed\b/i,
+    /\bshow(\s+me)?\s+(the\s+)?areas?\s+that\s+changed\b/i,
+    /\bshow(\s+me)?\s+(the\s+)?differences?\b/i,
   ];
   return patterns.some((p) => p.test(q));
 }
-

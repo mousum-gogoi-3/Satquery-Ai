@@ -10,6 +10,8 @@ function SlotCard({
   label,
   sublabel,
   image,
+  isActive = false,
+  onSelect,
   isUploading,
   onUpload,
   onRemove,
@@ -62,10 +64,16 @@ function SlotCard({
       <div className="upload-slot-wrapper">
         <div className="slot-badge-bar">
           <span className="slot-badge">{label}</span>
-          {sublabel && <span className="slot-sublabel">{sublabel}</span>}
+          {isActive && <span className="slot-active-badge">ACTIVE TARGET</span>}
+          {sublabel && !isActive && <span className="slot-sublabel">{sublabel}</span>}
         </div>
 
-        <div className="image-preview-card" id={`image-preview-${slotKey}`}>
+        <div 
+          className={`image-preview-card selectable ${isActive ? 'active-slot' : ''}`} 
+          id={`image-preview-${slotKey}`}
+          onClick={() => onSelect && onSelect(slotKey)}
+          title={`Click to select ${label} as active image`}
+        >
           <div className="preview-image-container">
             <img 
               src={previewSrc} 
@@ -81,7 +89,10 @@ function SlotCard({
                 <button 
                   type="button" 
                   className="btn-change-image"
-                  onClick={triggerSelect}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    triggerSelect();
+                  }}
                   disabled={isUploading}
                   title={`Replace ${label} image`}
                 >
@@ -91,7 +102,10 @@ function SlotCard({
                   <button 
                     type="button" 
                     className="btn-remove-image"
-                    onClick={onRemove}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onRemove();
+                    }}
                     disabled={isUploading}
                     title={`Remove ${label} image`}
                   >
@@ -186,7 +200,7 @@ function SlotCard({
           </p>
 
           <p className="upload-formats">
-            GeoTIFF, PNG, JPEG, JP2
+            GeoTIFF, TIFF, Multispectral / Satellite Raster
           </p>
         </div>
       </div>
@@ -197,6 +211,8 @@ function SlotCard({
 export default function ImageUploader({ 
   imageBefore,
   imageAfter,
+  activeSlot = 'before',
+  onSelectSlot,
   currentImage,
   onImageUploaded,
   onUploadBefore,
@@ -221,6 +237,8 @@ export default function ImageUploader({
           label="BEFORE"
           sublabel="Earlier Observation / Image 1"
           image={effectiveBefore}
+          isActive={activeSlot === 'before' || (!effectiveAfter && Boolean(effectiveBefore))}
+          onSelect={onSelectSlot}
           isUploading={isUploadingBefore || (isUploading && !effectiveBefore)}
           onUpload={handleBeforeUpload}
           onRemove={onRemoveBefore}
@@ -231,6 +249,8 @@ export default function ImageUploader({
           label="AFTER"
           sublabel="Later Observation / Image 2 (for Change Detection)"
           image={effectiveAfter}
+          isActive={activeSlot === 'after' || (!effectiveBefore && Boolean(effectiveAfter))}
+          onSelect={onSelectSlot}
           isUploading={isUploadingAfter}
           onUpload={handleAfterUpload}
           onRemove={onRemoveAfter}
@@ -238,13 +258,20 @@ export default function ImageUploader({
       </div>
 
       {uploadError && (
-        <div className="alert-box error-alert" id="upload-error-alert">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <div className="alert-box error-alert" id="upload-error-alert" style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: '2px' }}>
             <circle cx="12" cy="12" r="10" />
             <line x1="12" y1="8" x2="12" y2="12" />
             <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
-          <span>{uploadError}</span>
+          <div className="error-alert-content">
+            <strong style={{ display: 'block', fontSize: '0.95rem', marginBottom: '4px', color: '#ff6b6b' }}>
+              INVALID IMAGE
+            </strong>
+            <span style={{ fontSize: '0.875rem', lineHeight: '1.4' }}>
+              {uploadError}
+            </span>
+          </div>
         </div>
       )}
     </div>

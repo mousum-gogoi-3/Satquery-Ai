@@ -51,8 +51,8 @@ class Settings(BaseSettings):
     # Vision-Language Model (VLM) Settings - Phase 2
     VLM_MODEL_NAME: str = "Qwen/Qwen2-VL-2B-Instruct"
     VLM_DEVICE: str = "auto"  # "cuda", "cpu", or "auto"
-    USE_MOCK_VLM: bool = True  # Default to True for lightweight dev & test execution
-    MAX_VLM_TOKENS: int = 256
+    USE_MOCK_VLM: bool = False  # Real Qwen2-VL VLM by default on RTX 5060; overridable via SATQUERY_USE_MOCK_VLM
+    MAX_VLM_TOKENS: int = 512
 
     # Spatial Grounding & Evidence Settings - Phase 3
     GROUNDING_MODEL_NAME: str = "google/owlv2-base-patch16-ensemble"
@@ -80,6 +80,15 @@ class Settings(BaseSettings):
     REGISTRATION_FEATURE_MAX_KEYPOINTS: int = 1000
     REGISTRATION_MIN_MATCHES: int = 8
     REGISTRATION_MIN_OVERLAP_PCT: float = 0.05
+
+    # Input-Pair Validation Settings - Phase 4 Bugfix
+    TEMPORAL_IDENTICAL_IMAGE_THRESHOLD: float = 0.999
+    TEMPORAL_NEAR_DUPLICATE_THRESHOLD: float = 0.980
+    TEMPORAL_NEAR_DUPLICATE_DIFF_THRESHOLD: float = 0.015
+    TEMPORAL_PAIR_SIMILARITY_THRESHOLD: float = 0.40
+    TEMPORAL_MIN_GEOSPATIAL_OVERLAP_PCT: float = 10.0
+    TEMPORAL_MIN_FEATURE_INLIERS: int = 6
+
     def ensure_directories(self) -> None:
         """Create necessary data directories if they do not exist."""
         for path in [self.DATA_DIR, self.UPLOAD_DIR, self.PROCESSED_DIR, self.RESULTS_DIR]:

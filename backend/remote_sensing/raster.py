@@ -71,6 +71,7 @@ class RasterReader:
                         bounds=bounds_tuple,
                         nodata=nodata_val,
                         driver=src.driver,
+                        datatype=str(src.dtypes[0]) if src.dtypes else "unknown",
                         is_geospatial=bool(src.crs or (transform_list and transform_list != [1.0, 0.0, 0.0, 0.0, 1.0, 0.0])),
                     )
             except Exception as e_rasterio:

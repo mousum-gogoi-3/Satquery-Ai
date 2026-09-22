@@ -18,11 +18,15 @@ class HealthResponse(BaseModel):
     allowed_formats: List[str]
 
 
+from backend.remote_sensing.satellite_validator import SatelliteValidationResult as SatelliteValidationDiagnostics
+
+
 class UploadResponse(BaseModel):
     file_id: str
     filename: str
     file_path: str
     validation: ValidationResult
+    satellite_validation: Optional[SatelliteValidationDiagnostics] = None
     metadata: Optional[RasterMetadata] = None
     bands: List[BandInfo] = Field(default_factory=list)
     thumbnail_url: Optional[str] = None
@@ -53,6 +57,7 @@ class TilingResponse(BaseModel):
 class VQARequest(BaseModel):
     file_id: str
     question: str = Field(..., min_length=1, description="Natural-language question about the satellite scene.")
+    file_id_after: Optional[str] = Field(default=None, description="Optional ID of second/after observation for dual-image guard checks")
     tile_id: Optional[str] = None
 
 
@@ -63,6 +68,7 @@ class VQAResponse(BaseModel):
     confidence: float = Field(..., ge=0.0, le=1.0)
     processing_time_sec: float
     model_name: str
+    image_used: Optional[bool] = Field(default=True, description="Indicates if actual raster image was used for visual inference")
 
 
 class CaptionRequest(BaseModel):
@@ -113,6 +119,8 @@ class ImageDimensions(BaseModel):
 class GroundedAnalysisRequest(BaseModel):
     file_id: str
     query: str = Field(..., min_length=1, description="Target query or concept to ground visually (e.g. 'Where are the buildings?').")
+    file_id_after: Optional[str] = Field(default=None, description="Optional ID of second/after observation for bi-temporal change queries")
+    second_file_id: Optional[str] = Field(default=None, description="Alias for file_id_after")
     confidence_threshold: Optional[float] = Field(default=None, ge=0.0, le=1.0, description="Detection confidence cut-off threshold.")
     max_regions: Optional[int] = Field(default=None, ge=1, le=500, description="Maximum number of evidence regions to return.")
     debug_mode: bool = Field(default=False, description="Enable debug diagnostics and candidate inspection.")
@@ -154,6 +162,32 @@ class RegistrationQuality(str, Enum):
     MEDIUM = "MEDIUM"
     LOW = "LOW"
     FAILED = "FAILED"
+
+
+class PairClassification(str, Enum):
+    IDENTICAL_IMAGES = "IDENTICAL_IMAGES"
+    NEAR_DUPLICATE = "NEAR_DUPLICATE"
+    COMPATIBLE_TEMPORAL_PAIR = "COMPATIBLE_TEMPORAL_PAIR"
+    INCOMPATIBLE_IMAGES = "INCOMPATIBLE_IMAGES"
+
+
+class PairValidationDiagnostics(BaseModel):
+    classification: PairClassification = Field(..., description="Classification category for the image pair")
+    similarity_score: float = Field(..., ge=0.0, le=1.0, description="Overall similarity index between 0.0 and 1.0")
+    spatially_compatible: bool = Field(..., description="Whether the two images share spatial compatibility")
+    exact_hash_match: bool = Field(default=False, description="True if raw file hashes match identically")
+    spatial_overlap_pct: Optional[float] = Field(default=None, description="Footprint overlap percentage if georeferenced")
+    crs_compatible: Optional[bool] = Field(default=None, description="Whether coordinate reference systems are compatible")
+    resolution_compatible: Optional[bool] = Field(default=None, description="Whether spatial resolutions are compatible")
+    structural_similarity: Optional[float] = Field(default=None, description="SSIM structural similarity metric")
+    feature_inliers: Optional[int] = Field(default=None, description="Number of geometric feature match inliers")
+    reason: Optional[str] = Field(default=None, description="Explanation of validation classification")
+
+
+class TemporalStatistics(BaseModel):
+    changed_pixels: int = Field(default=0, description="Total changed pixels")
+    change_percentage: float = Field(default=0.0, description="Percentage of scene changed")
+    changed_sq_meters: Optional[float] = Field(default=None, description="Ground area in square meters")
 
 
 class RegistrationDiagnostics(BaseModel):
@@ -206,14 +240,18 @@ class TemporalAnalysisResponse(BaseModel):
     file_id_before: str
     file_id_after: str
     query: str
-    status: str = Field(..., description="Status string: 'SUCCESS', 'NO_SIGNIFICANT_CHANGE', 'NO_SPATIAL_OVERLAP', or 'ERROR'")
+    status: str = Field(..., description="Status string: 'SUCCESS', 'NO_CHANGE', 'NO_SIGNIFICANT_CHANGE', 'INCOMPATIBLE_IMAGES', 'NO_SPATIAL_OVERLAP', or 'ERROR'")
+    change_detected: bool = Field(default=False, description="Whether genuine temporal change was detected")
+    reason: Optional[str] = Field(default=None, description="Detailed explanation if no change, near-duplicate, or incompatible")
+    pair_validation: Optional[PairValidationDiagnostics] = Field(default=None, description="Input pair validation diagnostics")
+    statistics: Optional[TemporalStatistics] = Field(default=None, description="Summary statistics of detected changes")
     summary: str = Field(..., description="Natural-language synthesis of temporal changes detected")
     dominant_change_type: Optional[ChangeType] = Field(default=None, description="Primary detected change type in the scene")
     total_changed_area_pixels: int = Field(default=0, description="Total changed surface in pixels across all detected regions")
     total_changed_area_percentage: float = Field(default=0.0, description="Total changed percentage of the scene canvas")
     total_changed_area_sq_meters: Optional[float] = Field(default=None, description="Total changed surface in square meters")
     change_regions: List[ChangeRegion] = Field(default_factory=list, description="Extracted individual change regions with bounding boxes and evidence")
-    registration_diagnostics: RegistrationDiagnostics = Field(..., description="Diagnostics on spatial alignment and overlap")
+    registration_diagnostics: Optional[RegistrationDiagnostics] = Field(default=None, description="Diagnostics on spatial alignment and overlap")
     evidence_image_path: Optional[str] = Field(default=None, description="Relative path to multi-panel visual evidence image")
     change_heatmap_path: Optional[str] = Field(default=None, description="Relative path to change magnitude heatmap image")
     processing_time_sec: float

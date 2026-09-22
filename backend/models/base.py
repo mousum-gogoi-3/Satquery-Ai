@@ -121,12 +121,21 @@ class QwenModelManager:
                     torch.float16 if target_device == "cuda" else torch.float32
                 )
 
-                cls._processor = AutoProcessor.from_pretrained(model_name)
-                cls._model = Qwen2VLForConditionalGeneration.from_pretrained(
-                    model_name,
-                    torch_dtype=dtype,
-                    device_map=target_device if target_device == "cuda" else None
-                )
+                try:
+                    cls._processor = AutoProcessor.from_pretrained(model_name, local_files_only=True)
+                    cls._model = Qwen2VLForConditionalGeneration.from_pretrained(
+                        model_name,
+                        torch_dtype=dtype,
+                        device_map=target_device if target_device == "cuda" else None,
+                        local_files_only=True
+                    )
+                except Exception:
+                    cls._processor = AutoProcessor.from_pretrained(model_name)
+                    cls._model = Qwen2VLForConditionalGeneration.from_pretrained(
+                        model_name,
+                        torch_dtype=dtype,
+                        device_map=target_device if target_device == "cuda" else None
+                    )
                 if target_device == "cpu":
                     cls._model.to("cpu")
 
@@ -145,7 +154,7 @@ class QwenModelManager:
         image: Image.Image,
         prompt: str,
         system_prompt: Optional[str] = None,
-        max_new_tokens: int = 256
+        max_new_tokens: int = 512
     ) -> str:
         """
         Executes Qwen2-VL inference for an input image and prompt.
@@ -236,9 +245,10 @@ class BaseVLMEngine(abc.ABC):
 
         success = QwenModelManager.load_model(self.model_name, self.device_setting)
         if not success:
-            logger.warning(
-                f"Could not load real VLM model '{self.model_name}'. "
-                f"Falling back to lightweight mock engine."
+            logger.error(
+                f"Could not load real VLM model '{self.model_name}' on device '{self.device_setting}'."
             )
-            self.use_mock = True
+            raise RuntimeError(
+                f"Failed to load vision-language model '{self.model_name}' on device '{self.device_setting}'."
+            )
 
